@@ -17,10 +17,9 @@
 
         /* NAV */
         nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(11,22,40,.98),transparent);backdrop-filter:blur(2px);transition:background .3s,border .3s}
-        .logo{display:flex;flex-direction:column;line-height:1}
-        .logo-main{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:4px;color:var(--white)}
-        .logo-sub{font-size:9px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-top:2px}
-        .logo-star{color:var(--gold);margin-right:6px}
+        .logo-img-link{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
+        .nav-logo-img{height:54px;width:auto;object-fit:contain;display:block;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));transition:opacity .3s,transform .3s}
+        .nav-logo-img:hover{opacity:.85;transform:scale(1.03)}
         nav ul{display:flex;gap:36px;list-style:none;align-items:center}
         nav a{color:var(--text-muted);text-decoration:none;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative}
         nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
@@ -181,10 +180,9 @@
 <body>
 
 <nav id="navbar">
-    <div class="logo">
-        <div class="logo-main"><span class="logo-star">✦</span>NEXTSTEP</div>
-        <div class="logo-sub">Immigration Consultancy · Brussels</div>
-    </div>
+    <a href="index.html" class="logo-img-link">
+        <img src="logo.png" alt="NextStep Immigration" class="nav-logo-img">
+    </a>
     <ul>
         <li><a href="belgium.html">🇧🇪 Belgium</a></li>
         <li><a href="italy.html">🇮🇹 Italy</a></li>
@@ -319,7 +317,7 @@
 <footer id="contact">
     <div class="footer-top">
         <div>
-            <div class="logo"><div class="logo-main"><span class="logo-star">✦</span>NEXTSTEP</div><div class="logo-sub" style="font-size:10px">Immigration Consultancy · Brussels</div></div>
+            <a href="index.html"><img src="logo.png" alt="NextStep Immigration" style="height:50px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))"></a>
             <p class="footer-desc">Belgium-based student visa consultancy helping ambitious Bangladeshi students build their future in Europe. Belgium and Italy are just the beginning.</p>
         </div>
         <div class="footer-col">
@@ -334,15 +332,15 @@
         </div>
         <div class="footer-col">
             <h4>Contact Us</h4>
-            <div class="footer-contact-item"><span>📍</span><span>Brussels, Belgium (HQ)<br>& Dhaka, Bangladesh</span></div>
-            <div class="footer-contact-item"><span>📧</span><span>info@nextstepimmigration.be</span></div>
-            <div class="footer-contact-item"><span>📞</span><span>+32 XXX XXX XXX (Belgium)<br>+880 XXXXXXXXX (BD)</span></div>
-            <div class="footer-contact-item"><span>🕐</span><span>Mon–Sat: 9am–7pm (CET)</span></div>
+            <div class="footer-contact-item"><span>📍</span><span>Antwerp, Belgium (HQ)<br>& chittagong, Bangladesh</span></div>
+            <div class="footer-contact-item"><span>📧</span><span>belgian.business01@gmail.com</span></div>
+            <div class="footer-contact-item"><span>📞</span><span>+32 XXX XXX XXX (Belgium)<br>+8801805723581 (BD)</span></div>
+            <div class="footer-contact-item"><span>🕐</span><span>Mon–Sat: 10am–4pm (BD Time)</span></div>
             <div class="footer-contact-item"><span>📘</span><a href="https://www.facebook.com/profile.php?id=61587097272961" target="_blank" style="color:#4293f5;text-decoration:none">Follow us on Facebook</a></div>
         </div>
     </div>
     <div class="footer-bottom">
-        <span>© 2025 NEXTSTEP IMMIGRATION · All rights reserved. Based in Brussels, Belgium.</span>
+        <span>© 2025 NEXTSTEP IMMIGRATION · All rights reserved. Based in Antwerp, Belgium.</span>
         <div class="footer-flags">🇧🇪 🇮🇹 🇧🇩</div>
     </div>
 </footer>
