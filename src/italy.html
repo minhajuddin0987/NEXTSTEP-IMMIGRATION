@@ -206,25 +206,33 @@
       .uni-intro-banner{flex-direction:column;padding:32px 24px}
       .uni-card-inner{padding:0 20px 24px}
       .uni-section{padding-left:20px;padding-right:20px}
-    }
-    nav{padding:16px 24px}
-    nav ul{display:none}
-    .page-hero{padding:120px 24px 60px}
-    .page-hero-inner{flex-direction:column;gap:24px}
-    .page-hero-flag{font-size:70px}
-    .visa-grid{grid-template-columns:1fr}
-    .living-cards-grid{grid-template-columns:1fr}
-    .living-banner-inner{flex-direction:column;gap:16px}
-    .form-grid{grid-template-columns:1fr}
-    .form-full{grid-column:1}
-    .living-section,.form-wrapper,.page-section{padding-left:20px;padding-right:20px}
-    footer{padding:50px 24px 28px}
-    .footer-top{grid-template-columns:1fr;gap:36px}
-    .footer-bottom{flex-direction:column;gap:14px;text-align:center}
-    .form-section{padding:36px 24px}
+      nav{padding:16px 24px}
+      nav ul{display:none}
+      .page-hero{padding:120px 24px 60px}
+      .page-hero-inner{flex-direction:column;gap:24px}
+      .page-hero-flag{font-size:70px}
+      .visa-grid{grid-template-columns:1fr}
+      .living-cards-grid{grid-template-columns:1fr}
+      .living-banner-inner{flex-direction:column;gap:16px}
+      .form-grid{grid-template-columns:1fr}
+      .form-full{grid-column:1}
+      .living-section,.form-wrapper,.page-section{padding-left:20px;padding-right:20px}
+      footer{padding:50px 24px 28px}
+      .footer-top{grid-template-columns:1fr;gap:36px}
+      .footer-bottom{flex-direction:column;gap:14px;text-align:center}
+      .form-section{padding:36px 24px}
     }
   </style>
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PXM14STGBB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PXM14STGBB');
+</script>
 <body>
 
 <!-- NAV -->
@@ -235,6 +243,7 @@
   <ul>
     <li><a href="index.html">← Home</a></li>
     <li><a href="#visa" class="nav-active">🇮🇹 Visa Guide</a></li>
+    <li><a href="#universities">🏛️ Universities</a></li>
     <li><a href="#living">Student Life</a></li>
     <li><a href="#it-form">Apply Now</a></li>
     <li><a href="belgium.html">🇧🇪 Belgium</a></li>
@@ -1334,6 +1343,34 @@
 <script>
   const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwuefXXDkKgIyChRBsAuYo_dJDVFmyXZrMP_mtIXrqG92QrgcWfG8bq1kqEr6Q9cBj2/exec';
 
+  // ─── ACCORDION: open/close university cards ───
+  function toggleUni(header) {
+    const card = header.parentElement;
+    const isOpen = card.classList.contains('open');
+    // Close all open cards first
+    document.querySelectorAll('.uni-card').forEach(c => c.classList.remove('open'));
+    // Open the clicked one if it was closed
+    if (!isOpen) card.classList.add('open');
+  }
+
+  // ─── TABS: switch between Bachelor's / Master's panels ───
+  function switchTab(btn, panelId) {
+    const inner = btn.closest('.uni-card-inner');
+    inner.querySelectorAll('.ucritab').forEach(b => b.classList.remove('active'));
+    inner.querySelectorAll('.ucri-panel').forEach(p => p.classList.remove('show'));
+    btn.classList.add('active');
+    document.getElementById(panelId).classList.add('show');
+  }
+
+  // ─── QUICK NAV: scroll to and open a specific university ───
+  function scrollToUni(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add('open');
+    setTimeout(() => el.scrollIntoView({behavior: 'smooth', block: 'start'}), 100);
+  }
+
+  // ─── FORM SUBMISSION ───
   async function handleSubmit(e, country) {
     e.preventDefault();
     const form = e.target;
@@ -1356,6 +1393,8 @@
       setTimeout(()=>{btn.textContent=orig;btn.style.background=''},4000);
     }
   }
+
+  // ─── SCROLL ANIMATIONS ───
   const obs = new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('visible')),{threshold:.08});
   document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 </script>
