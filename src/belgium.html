@@ -8,206 +8,288 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         :root{
-            --gold:#C9A84C;--gold-light:#E8C96A;--navy:#0B1628;--navy-mid:#12223D;--navy-light:#1A3058;
-            --white:#F9F6F0;--text-muted:#8A9BB5;--be-yellow:#FFD700;--be-red:#C1272D;
+            --gold:#B8912E;--gold-light:#D4A843;--gold-pale:#F5EDD6;
+            --navy:#1A2B45;--navy-soft:#2C3E5A;
+            --white:#FFFFFF;--bg:#F8F6F2;--bg-alt:#F2EFE9;
+            --text:#1C2B3A;--text-muted:#3E5060;--text-soft:#56707F;
+            --border:rgba(0,0,0,.07);--border-gold:rgba(184,145,46,.2);
+            --shadow-sm:0 2px 12px rgba(0,0,0,.06);
+            --shadow-md:0 8px 32px rgba(0,0,0,.08);
+            --shadow-lg:0 24px 64px rgba(0,0,0,.1);
+            --be-yellow:#E8B400;--be-red:#C1272D;
         }
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth}
-        body{background:var(--navy);color:var(--white);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden}
-        body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.5}
+        body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font-weight:400;overflow-x:hidden}
 
         /* NAV */
         .logo-img-link{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
-        .nav-logo-img{height:54px;width:auto;object-fit:contain;display:block;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));transition:opacity .3s,transform .3s}
-        .nav-logo-img:hover{opacity:.85;transform:scale(1.03)}
-        nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(11,22,40,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,.1)}
-        nav ul{display:flex;gap:36px;list-style:none;align-items:center}
-        nav a{color:var(--text-muted);text-decoration:none;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:500;transition:color .3s;position:relative}
-        nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
-        nav a:hover{color:var(--gold)}
+        .nav-logo-img{height:48px;width:auto;object-fit:contain;display:block;transition:opacity .3s,transform .3s}
+        .nav-logo-img:hover{opacity:.8;transform:scale(1.03)}
+        nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(248,246,242,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+        nav.scrolled{box-shadow:var(--shadow-sm)}
+        nav ul{display:flex;gap:34px;list-style:none;align-items:center}
+        nav a{color:var(--text-muted);text-decoration:none;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600;transition:color .3s;position:relative}
+        nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--be-yellow);transition:width .3s}
+        nav a:hover{color:var(--be-yellow)}
         nav a:hover::after{width:100%}
         .nav-active{color:var(--be-yellow)!important}
-        .nav-active::after{width:100%!important;background:var(--be-yellow)!important}
-        .nav-cta{background:var(--gold)!important;color:var(--navy)!important;padding:10px 24px;border-radius:2px;font-weight:600!important}
-        .nav-cta:hover{background:var(--gold-light)!important}
+        .nav-active::after{width:100%!important}
+        .nav-cta{background:var(--navy)!important;color:var(--white)!important;padding:10px 24px;border-radius:3px;font-weight:600!important;letter-spacing:2px!important}
+        .nav-cta:hover{background:var(--navy-soft)!important}
         .nav-cta::after{display:none!important}
-        .nav-back{display:flex;align-items:center;gap:8px;color:var(--text-muted)!important;font-size:11px;letter-spacing:2px}
-        .nav-back:hover{color:var(--gold)!important}
 
         /* PAGE HERO */
-        .page-hero{padding:160px 60px 80px;position:relative;z-index:1;background:linear-gradient(135deg,rgba(0,0,0,.6) 0%,rgba(20,15,5,.5) 100%);border-bottom:1px solid rgba(255,215,0,.1);overflow:hidden}
-        .page-hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(0,0,0,.04) 0 33%,rgba(255,215,0,.03) 33% 66%,rgba(193,39,45,.03) 66% 100%)}
-        .page-hero-orb{position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(255,215,0,.07),transparent);border-radius:50%;filter:blur(80px);top:-100px;right:-100px;pointer-events:none}
+        .page-hero{
+            padding:160px 60px 80px;position:relative;z-index:1;
+            background:linear-gradient(145deg,#FFFEF5 0%,#FFF9E0 50%,#FFF4CC 100%);
+            border-bottom:1px solid rgba(232,180,0,.15);overflow:hidden
+        }
+        .page-hero::before{
+            content:'';position:absolute;inset:0;
+            background-image:radial-gradient(circle,rgba(232,180,0,.1) 1px,transparent 1px);
+            background-size:36px 36px;opacity:.6
+        }
+        .page-hero-orb{position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(232,180,0,.1),transparent);border-radius:50%;filter:blur(80px);top:-100px;right:-100px;pointer-events:none}
         .page-hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2;display:flex;align-items:center;gap:50px}
-        .page-hero-flag{font-size:100px;filter:drop-shadow(0 15px 40px rgba(0,0,0,.6));animation:flagWave 4s ease-in-out infinite;flex-shrink:0}
+        .page-hero-flag{font-size:100px;filter:drop-shadow(0 10px 30px rgba(0,0,0,.15));animation:flagWave 4s ease-in-out infinite;flex-shrink:0}
         @keyframes flagWave{0%,100%{transform:rotate(-2deg) scale(1)}50%{transform:rotate(2deg) scale(1.05)}}
-        .page-hero-text{}
-        .page-hero-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--be-yellow);font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:14px}
-        .page-hero-eyebrow::before{content:'';width:30px;height:1px;background:var(--be-yellow);opacity:.5}
-        .page-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,90px);font-weight:300;line-height:.9;margin-bottom:20px;letter-spacing:-2px}
+        .page-hero-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--be-yellow);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+        .page-hero-eyebrow::before{content:'';width:30px;height:1px;background:var(--be-yellow);opacity:.6}
+        .page-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,90px);font-weight:300;line-height:.9;margin-bottom:20px;letter-spacing:-2px;color:var(--navy)}
         .page-hero-title em{font-style:italic;color:var(--be-yellow)}
-        .page-hero-stripe{width:80px;height:4px;background:linear-gradient(90deg,#000 0 33%,#FFD700 33% 66%,#C1272D 66% 100%);border-radius:2px;margin-bottom:24px}
-        .page-hero-desc{font-size:16px;color:var(--text-muted);line-height:1.8;max-width:560px}
-        .page-hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
-        .hero-tag{font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:7px 16px;border-radius:20px;border:1px solid rgba(255,215,0,.2);color:rgba(255,215,0,.75);background:rgba(255,215,0,.05)}
-        .page-nav-pills{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
-        .pill-btn{padding:10px 22px;border-radius:30px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:500;text-decoration:none;border:1px solid rgba(255,255,255,.12);color:var(--text-muted);transition:all .3s;background:transparent}
-        .pill-btn:hover,.pill-btn.active{background:rgba(255,215,0,.1);border-color:var(--be-yellow);color:var(--be-yellow)}
+        .page-hero-stripe{width:80px;height:4px;background:linear-gradient(90deg,#1C1C1C 0 33%,#F5C400 33% 66%,#C1272D 66% 100%);border-radius:2px;margin-bottom:24px}
+        .page-hero-desc{font-size:16px;color:var(--text-muted);line-height:1.85;max-width:560px}
+        .page-hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+        .hero-tag{font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:7px 16px;border-radius:20px;border:1px solid rgba(232,180,0,.3);color:rgba(150,100,0,.85);background:rgba(232,180,0,.08)}
+        .page-nav-pills{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+        .pill-btn{padding:10px 22px;border-radius:30px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:500;text-decoration:none;border:1.5px solid var(--border);color:var(--text-muted);transition:all .3s;background:var(--white)}
+        .pill-btn:hover,.pill-btn.active{background:rgba(232,180,0,.1);border-color:var(--be-yellow);color:#8A6000}
 
-        /* SECTION WRAPPER */
+        /* SECTION */
         .page-section{max-width:1240px;margin:0 auto;padding:80px 40px;position:relative;z-index:1}
         .section-label{display:flex;align-items:center;gap:14px;margin-bottom:16px}
-        .section-label-line{width:40px;height:2px;background:linear-gradient(90deg,#000 0 33%,#FFD700 33% 66%,#C1272D 66% 100%);border-radius:2px}
-        .section-label-text{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--be-yellow);font-weight:600}
-        .section-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:300;margin-bottom:10px;line-height:1.1}
-        .section-sub{font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:50px;max-width:620px}
-        hr.section-sep{border:none;height:1px;background:linear-gradient(to right,transparent,rgba(255,215,0,.2),transparent);margin:80px 0}
+        .section-label-line{width:40px;height:2px;background:linear-gradient(90deg,#1C1C1C 0 33%,#F5C400 33% 66%,#C1272D 66% 100%);border-radius:2px}
+        .section-label-text{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--be-yellow);font-weight:700}
+        .section-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:300;margin-bottom:10px;line-height:1.1;color:var(--navy)}
+        .section-sub{font-size:14px;color:var(--text-muted);line-height:1.85;margin-bottom:50px;max-width:620px}
+        hr.section-sep{border:none;height:1px;background:linear-gradient(to right,transparent,rgba(232,180,0,.25),transparent);margin:80px 0}
 
         /* VISA CARDS */
         .visa-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
-        .visa-card{background:var(--navy-mid);border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:44px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s}
-        .visa-card:hover{border-color:rgba(255,215,0,.25);transform:translateY(-4px)}
-        .visa-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#000,#FFD700,#C1272D)}
-        .visa-card-icon{width:52px;height:52px;border-radius:50%;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.18);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:24px}
-        .visa-card-step{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--be-yellow);font-weight:600;margin-bottom:8px}
-        .visa-card-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;margin-bottom:28px}
+        .visa-card{
+            background:var(--white);border:1px solid var(--border);
+            border-radius:8px;padding:44px;position:relative;overflow:hidden;
+            transition:border-color .3s,transform .3s,box-shadow .3s;
+            box-shadow:var(--shadow-sm)
+        }
+        .visa-card:hover{border-color:rgba(232,180,0,.35);transform:translateY(-4px);box-shadow:var(--shadow-md)}
+        .visa-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#1C1C1C 0 33%,#F5C400 33% 66%,#C1272D 66% 100%)}
+        .visa-card-icon{width:52px;height:52px;border-radius:50%;background:rgba(232,180,0,.1);border:1.5px solid rgba(232,180,0,.25);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:24px}
+        .visa-card-step{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--be-yellow);font-weight:700;margin-bottom:8px}
+        .visa-card-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;margin-bottom:28px;color:var(--navy)}
         .doc-list{list-style:none}
-        .doc-list li{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:14px;color:rgba(249,246,240,.8);line-height:1.55;transition:color .2s}
+        .doc-list li{display:flex;align-items:flex-start;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px;font-weight:400;color:var(--text-muted);line-height:1.6;transition:color .2s}
         .doc-list li:last-child{border-bottom:none}
-        .doc-list li:hover{color:var(--white)}
-        .doc-check{width:20px;height:20px;border-radius:50%;background:rgba(255,215,0,.12);color:#FFD700;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:3px}
+        .doc-list li:hover{color:var(--text)}
+        .doc-check{width:20px;height:20px;border-radius:50%;background:rgba(232,180,0,.12);color:var(--be-yellow);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:3px}
 
-        /* ─── LIVING GUIDE ─── */
+        /* UNIVERSITIES */
+        .uni-section{max-width:1240px;margin:0 auto;padding:80px 40px;position:relative;z-index:1}
+        .uni-intro-banner{
+            background:linear-gradient(145deg,#FFFEF5 0%,#FFF9E0 100%);
+            border:1px solid rgba(232,180,0,.2);border-radius:10px;
+            padding:46px 50px;margin-bottom:50px;position:relative;overflow:hidden;
+            display:flex;align-items:center;gap:30px;
+            box-shadow:var(--shadow-sm)
+        }
+        .uni-intro-icon{font-size:56px;flex-shrink:0;filter:drop-shadow(0 6px 16px rgba(0,0,0,.12))}
+        .uni-intro-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;margin-bottom:10px;color:var(--navy)}
+        .uni-intro-text h2 em{font-style:italic;color:var(--be-yellow)}
+        .uni-intro-text p{font-size:14px;color:var(--text-muted);line-height:1.75;max-width:600px}
+        .uni-quicknav{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px}
+        .uni-qpill{padding:8px 18px;border-radius:30px;border:1.5px solid var(--border);color:var(--text-muted);font-size:11px;letter-spacing:2px;text-transform:uppercase;transition:all .25s;background:var(--white);cursor:pointer}
+        .uni-qpill:hover{border-color:var(--be-yellow);color:#8A6000;background:rgba(232,180,0,.06)}
+        .uni-accordion{display:flex;flex-direction:column;gap:14px}
+        .uni-card{
+            background:var(--white);border:1px solid var(--border);
+            border-radius:8px;overflow:hidden;transition:border-color .3s,box-shadow .3s;
+            box-shadow:var(--shadow-sm)
+        }
+        .uni-card.open{border-color:rgba(232,180,0,.35);box-shadow:var(--shadow-md)}
+        .uni-card-header{display:flex;align-items:center;gap:20px;padding:24px 30px;cursor:pointer;transition:background .2s;user-select:none}
+        .uni-card-header:hover{background:rgba(232,180,0,.04)}
+        .uni-card-num{font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(232,180,0,.3);line-height:1;flex-shrink:0;width:36px}
+        .uni-card-flag-col{font-size:28px;flex-shrink:0}
+        .uni-card-meta{flex:1}
+        .uni-card-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--navy);margin-bottom:4px;line-height:1.1}
+        .uni-card-tagline{font-size:12px;color:var(--text-muted);letter-spacing:1px}
+        .uni-card-badges{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+        .uni-badge{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:14px;font-weight:500}
+        .badge-be{background:rgba(232,180,0,.1);color:#8A6000;border:1px solid rgba(232,180,0,.25)}
+        .badge-en{background:rgba(60,130,220,.08);color:#2E6FB0;border:1px solid rgba(60,130,220,.2)}
+        .badge-note{background:rgba(193,39,45,.07);color:#A02025;border:1px solid rgba(193,39,45,.18)}
+        .uni-card-toggle{width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(232,180,0,.25);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--be-yellow);transition:transform .3s,background .2s;flex-shrink:0}
+        .uni-card.open .uni-card-toggle{transform:rotate(180deg);background:rgba(232,180,0,.1)}
+        .uni-card-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.16,1,.3,1)}
+        .uni-card.open .uni-card-body{max-height:2000px}
+        .uni-card-inner{padding:0 30px 30px}
+        .uni-card-divider{height:1px;background:linear-gradient(to right,rgba(232,180,0,.2),transparent);margin-bottom:28px}
+        .uni-body-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+        .uni-col-title{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--be-yellow);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+        .uni-col-title::after{content:'';flex:1;height:1px;background:rgba(232,180,0,.2)}
+        .uni-prog-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+        .uni-prog-list li{font-size:13px;font-weight:400;color:var(--text-muted);padding-left:14px;position:relative;line-height:1.45}
+        .uni-prog-list li::before{content:'›';position:absolute;left:0;color:var(--be-yellow);font-size:15px;line-height:1.2}
+        .uni-prog-list li strong{color:var(--text);font-weight:500}
+        .uni-criteria-tabs{display:flex;gap:8px;margin-bottom:16px}
+        .ucritab{padding:6px 14px;border-radius:20px;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:500;cursor:pointer;border:1.5px solid var(--border);color:var(--text-muted);background:var(--white);transition:all .2s}
+        .ucritab.active{background:rgba(232,180,0,.1);border-color:var(--be-yellow);color:#8A6000}
+        .ucri-panel{display:none}
+        .ucri-panel.show{display:block}
+        .ucri-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+        .ucri-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;font-weight:400;color:var(--text-muted);line-height:1.55}
+        .ucri-dot{width:16px;height:16px;border-radius:50%;background:rgba(232,180,0,.1);border:1px solid rgba(232,180,0,.25);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--be-yellow);flex-shrink:0;margin-top:2px}
+        .ucri-list li strong{color:var(--text);font-weight:500}
+        .uni-note-box{background:rgba(232,180,0,.07);border-left:3px solid var(--be-yellow);border-radius:0 4px 4px 0;padding:12px 16px;margin-top:14px;font-size:12px;color:#8A6000;line-height:1.6}
+        .uni-website-link{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:9px 18px;border:1.5px solid rgba(232,180,0,.25);border-radius:30px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8A6000;text-decoration:none;transition:all .3s;background:rgba(232,180,0,.05)}
+        .uni-website-link:hover{background:rgba(232,180,0,.12);border-color:var(--be-yellow)}
+
+        /* SYSTEM DIVIDER — between research unis and hogescholen */
+        .system-divider{
+            background:linear-gradient(135deg,var(--navy) 0%,var(--navy-soft) 100%);
+            border-radius:10px;padding:36px 40px;margin:52px 0 36px;
+            display:flex;align-items:flex-start;gap:24px;
+            position:relative;overflow:hidden
+        }
+        .system-divider::after{content:'HOGESCHOLEN';position:absolute;right:-20px;top:50%;transform:translateY(-50%) rotate(90deg);font-family:'Bebas Neue',sans-serif;font-size:80px;letter-spacing:6px;color:rgba(255,255,255,.04);pointer-events:none;white-space:nowrap}
+        .system-divider-icon{font-size:44px;flex-shrink:0;filter:drop-shadow(0 4px 12px rgba(0,0,0,.3))}
+        .system-divider-text h3{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3vw,34px);font-weight:300;color:var(--white);margin-bottom:10px}
+        .system-divider-text h3 em{font-style:italic;color:var(--be-yellow)}
+        .system-divider-text p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.75;max-width:680px}
+        .system-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+        .system-compare-col{padding:16px 18px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+        .system-compare-col h4{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:10px}
+        .system-compare-col.col-research h4{color:var(--be-yellow)}
+        .system-compare-col.col-applied h4{color:rgba(100,200,255,.85)}
+        .system-compare-col ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+        .system-compare-col ul li{font-size:12px;color:rgba(255,255,255,.55);padding-left:14px;position:relative;line-height:1.45}
+        .system-compare-col ul li::before{content:'›';position:absolute;left:0;font-size:14px;line-height:1.2}
+        .system-compare-col.col-research ul li::before{color:var(--be-yellow)}
+        .system-compare-col.col-applied ul li::before{color:rgba(100,200,255,.8)}
+
+        /* HOGESCHOLEN-specific badge */
+        .badge-applied{background:rgba(80,160,255,.1);color:#3080D0;border:1px solid rgba(80,160,255,.2)}
+        .badge-fee{background:rgba(184,145,46,.1);color:#8A6000;border:1px solid rgba(184,145,46,.2)}
+        .uni-fee-box{background:rgba(184,145,46,.07);border:1px solid rgba(184,145,46,.18);border-radius:4px;padding:10px 14px;margin-top:10px;font-size:12px;color:#8A6000;display:flex;align-items:center;gap:8px}
+        .common-docs-box{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:24px 28px;margin-top:36px}
+        .common-docs-box h4{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--be-yellow);font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+        .common-docs-box h4::after{content:'';flex:1;height:1px;background:rgba(232,180,0,.2)}
+        .common-docs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .common-doc-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text-muted);padding:6px 0;line-height:1.5}
+        .common-doc-dot{width:16px;height:16px;border-radius:50%;background:rgba(232,180,0,.1);border:1px solid rgba(232,180,0,.2);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--be-yellow);flex-shrink:0;margin-top:2px}
+        @media(max-width:900px){.system-compare{grid-template-columns:1fr}.common-docs-grid{grid-template-columns:1fr}.system-divider{flex-direction:column;gap:16px}}
+
+        /* LIVING GUIDE */
         .living-section{padding:0 40px 80px;max-width:1240px;margin:0 auto;position:relative;z-index:1}
-        .living-banner{background:linear-gradient(135deg,rgba(0,0,0,.85) 0%,rgba(25,15,0,.9) 100%);border:1px solid rgba(255,215,0,.15);border-radius:8px;padding:50px;margin-bottom:50px;position:relative;overflow:hidden}
-        .living-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 33%,rgba(255,215,0,.04) 33% 66%,rgba(193,39,45,.04) 66% 100%)}
-        .living-banner::after{content:'BELGIUM';position:absolute;right:-30px;top:50%;transform:translateY(-50%) rotate(90deg);font-family:'Bebas Neue',sans-serif;font-size:140px;letter-spacing:8px;color:rgba(255,215,0,.04);pointer-events:none;white-space:nowrap}
+        .living-banner{
+            background:linear-gradient(145deg,#FFFEF5,#FFF9E0);
+            border:1px solid rgba(232,180,0,.2);border-radius:10px;
+            padding:50px;margin-bottom:44px;position:relative;overflow:hidden;
+            box-shadow:var(--shadow-sm)
+        }
+        .living-banner::after{content:'BELGIUM';position:absolute;right:-30px;top:50%;transform:translateY(-50%) rotate(90deg);font-family:'Bebas Neue',sans-serif;font-size:140px;letter-spacing:8px;color:rgba(232,180,0,.06);pointer-events:none;white-space:nowrap}
         .living-banner-inner{position:relative;z-index:2;display:flex;align-items:center;gap:30px}
-        .living-banner-icon{font-size:60px;flex-shrink:0;filter:drop-shadow(0 8px 20px rgba(0,0,0,.5))}
-        .living-banner-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);font-weight:300;margin-bottom:10px}
+        .living-banner-icon{font-size:60px;flex-shrink:0;filter:drop-shadow(0 6px 16px rgba(0,0,0,.12))}
+        .living-banner-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);font-weight:300;margin-bottom:10px;color:var(--navy)}
         .living-banner-text h2 em{font-style:italic;color:var(--be-yellow)}
-        .living-banner-text p{font-size:14px;color:var(--text-muted);line-height:1.7;max-width:560px}
-        .living-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:20px}
-        .living-cards-grid-2{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-        .lcard{background:var(--navy-mid);border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:32px 28px;position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s}
-        .lcard:hover{transform:translateY(-5px);border-color:rgba(255,215,0,.3);box-shadow:0 20px 50px rgba(0,0,0,.3)}
-        .lcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#000,#FFD700,#C1272D)}
-        .lcard-icon{font-size:36px;margin-bottom:14px;display:block;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3))}
-        .lcard-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--be-yellow);font-weight:600;margin-bottom:10px;display:block}
-        .lcard-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--white);margin-bottom:18px;line-height:1.2}
-        .lcard-body{display:flex;flex-direction:column;gap:0}
-        .lcard-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:rgba(249,246,240,.75);line-height:1.55}
+        .living-banner-text p{font-size:14px;color:var(--text-muted);line-height:1.75;max-width:560px}
+        .living-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:18px}
+        .living-cards-grid-2{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+        .lcard{
+            background:var(--white);border:1px solid var(--border);
+            border-radius:8px;padding:30px 26px;position:relative;overflow:hidden;
+            transition:transform .3s,border-color .3s,box-shadow .3s;
+            box-shadow:var(--shadow-sm)
+        }
+        .lcard:hover{transform:translateY(-4px);border-color:rgba(232,180,0,.3);box-shadow:var(--shadow-md)}
+        .lcard::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#1C1C1C 0 33%,#F5C400 33% 66%,#C1272D 66% 100%)}
+        .lcard-icon{font-size:34px;margin-bottom:12px;display:block;line-height:1}
+        .lcard-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--be-yellow);font-weight:700;margin-bottom:8px;display:block}
+        .lcard-title{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;color:var(--navy);margin-bottom:16px;line-height:1.2}
+        .lcard-body{display:flex;flex-direction:column}
+        .lcard-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;font-weight:400;color:var(--text-muted);line-height:1.55}
         .lcard-item:last-child{border-bottom:none}
-        .lcard-item-dot{width:18px;height:18px;border-radius:50%;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.2);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--be-yellow);flex-shrink:0;margin-top:2px}
-        .lcard-item strong{color:var(--white);font-weight:500}
-        .lcard-highlight{margin-top:14px;padding:12px 14px;background:rgba(255,215,0,.06);border-left:3px solid var(--be-yellow);border-radius:0 4px 4px 0;font-size:12px;color:rgba(255,220,100,.85);line-height:1.6}
+        .lcard-item-dot{width:18px;height:18px;border-radius:50%;background:rgba(232,180,0,.1);border:1px solid rgba(232,180,0,.2);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--be-yellow);flex-shrink:0;margin-top:2px}
+        .lcard-item strong{color:var(--text);font-weight:500}
+        .lcard-highlight{margin-top:14px;padding:10px 14px;background:rgba(232,180,0,.07);border-left:3px solid var(--be-yellow);border-radius:0 4px 4px 0;font-size:12px;color:#8A6000;line-height:1.6}
         .lcard-big{grid-column:span 2}
-        .living-footer-note{background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.15);border-radius:6px;padding:24px 30px;display:flex;align-items:flex-start;gap:16px;margin-top:20px;font-size:13px;color:var(--text-muted);line-height:1.7}
+        .living-footer-note{background:rgba(232,180,0,.06);border:1px solid rgba(232,180,0,.18);border-radius:8px;padding:22px 28px;display:flex;align-items:flex-start;gap:16px;margin-top:18px;font-size:13px;color:var(--text-muted);line-height:1.75}
         .living-footer-note-icon{font-size:22px;flex-shrink:0;margin-top:1px}
 
         /* FORM */
         .form-wrapper{padding:0 40px 100px;max-width:1240px;margin:0 auto;position:relative;z-index:1}
-        .form-section{background:var(--navy-mid);border:1px solid rgba(255,215,0,.15);border-radius:8px;padding:60px;position:relative;overflow:hidden}
-        .form-section::after{content:'BELGIUM';position:absolute;right:-30px;top:50%;transform:translateY(-50%) rotate(90deg);font-family:'Bebas Neue',sans-serif;font-size:120px;letter-spacing:10px;color:rgba(255,215,0,.03);pointer-events:none;white-space:nowrap}
+        .form-section{
+            background:var(--white);border:1px solid var(--border);
+            border-radius:10px;padding:60px;position:relative;overflow:hidden;
+            box-shadow:var(--shadow-md)
+        }
+        .form-section::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#1C1C1C 0 33%,#F5C400 33% 66%,#C1272D 66% 100%)}
         .form-header{display:flex;align-items:center;gap:20px;margin-bottom:50px}
-        .form-header-icon{width:56px;height:56px;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
-        .form-header h3{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;margin-bottom:4px}
+        .form-header-icon{width:56px;height:56px;background:rgba(232,180,0,.1);border:1.5px solid rgba(232,180,0,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+        .form-header h3{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;margin-bottom:4px;color:var(--navy)}
         .form-header p{font-size:13px;color:var(--text-muted)}
-        .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+        .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
         .form-full{grid-column:1/-1}
-        .field-group{display:flex;flex-direction:column;gap:8px}
-        .field-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--be-yellow);font-weight:500}
-        .field-label span{color:#C1272D;margin-left:4px}
-        input,select,textarea{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:14px 18px;color:var(--white);font-family:'Outfit',sans-serif;font-size:14px;font-weight:300;width:100%;transition:border-color .3s,background .3s;outline:none;appearance:none}
-        input:focus,select:focus,textarea:focus{border-color:var(--be-yellow);background:rgba(255,215,0,.04)}
-        input::placeholder,textarea::placeholder{color:rgba(138,155,181,.5)}
-        select option{background:var(--navy-mid);color:var(--white)}
+        .field-group{display:flex;flex-direction:column;gap:7px}
+        .field-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--be-yellow);font-weight:600}
+        .field-label span{color:var(--be-red);margin-left:4px}
+        input,select,textarea{
+            background:var(--bg);border:1.5px solid var(--border);
+            border-radius:4px;padding:13px 16px;
+            color:var(--text);font-family:'Outfit',sans-serif;
+            font-size:14px;font-weight:400;width:100%;
+            transition:border-color .3s,background .3s;outline:none;appearance:none
+        }
+        input:focus,select:focus,textarea:focus{border-color:var(--be-yellow);background:rgba(232,180,0,.04)}
+        input::placeholder,textarea::placeholder{color:var(--text-soft)}
+        select option{background:var(--white);color:var(--text)}
         textarea{resize:vertical;min-height:110px}
-        .submit-btn{width:100%;padding:18px 40px;border:none;border-radius:3px;font-family:'Outfit',sans-serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;font-weight:600;cursor:pointer;transition:all .3s;margin-top:10px;background:linear-gradient(90deg,#000 0 33%,#FFD700 33% 66%,#C1272D 66% 100%);color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.7)}
-        .submit-btn:hover{opacity:.85;transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,215,0,.2)}
-        .success-toast{display:none;align-items:center;gap:14px;background:rgba(0,146,70,.15);border:1px solid rgba(0,146,70,.4);border-radius:4px;padding:18px 24px;margin-top:16px;font-size:14px;color:#60D090}
+        .submit-btn{
+            width:100%;padding:17px 40px;border:none;border-radius:4px;
+            font-family:'Outfit',sans-serif;font-size:12px;letter-spacing:4px;
+            text-transform:uppercase;font-weight:600;cursor:pointer;
+            transition:all .3s;margin-top:10px;
+            background:linear-gradient(90deg,#1C1C1C 0 33%,#F5C400 33% 66%,#C1272D 66% 100%);
+            color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6)
+        }
+        .submit-btn:hover{opacity:.88;transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.15)}
+        .success-toast{display:none;align-items:center;gap:14px;background:rgba(0,140,60,.08);border:1px solid rgba(0,140,60,.3);border-radius:6px;padding:18px 24px;margin-top:16px;font-size:14px;color:#006030}
         .success-toast.show{display:flex}
-        .form-note{font-size:11px;color:var(--text-muted);text-align:center;margin-top:20px;line-height:1.6}
+        .form-note{font-size:11px;color:var(--text-soft);text-align:center;margin-top:18px;line-height:1.6}
 
         /* FOOTER */
-        footer{padding:70px 60px 36px;background:var(--navy);border-top:1px solid rgba(201,168,76,.15);position:relative;z-index:1}
+        footer{padding:70px 60px 36px;background:var(--navy);position:relative;z-index:1}
+        footer::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold) 0%,var(--gold-light) 50%,var(--gold) 100%)}
         .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;margin-bottom:50px}
-        .footer-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none}
-        .footer-desc{font-size:13px;color:var(--text-muted);line-height:1.8;margin-top:16px;max-width:300px}
+        .footer-desc{font-size:13px;color:rgba(255,255,255,.72);line-height:1.85;margin-top:16px;max-width:300px}
         .footer-col h4{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
         .footer-col ul{list-style:none}
-        .footer-col ul li{margin-bottom:11px;font-size:13px;color:var(--text-muted);cursor:pointer;transition:color .3s}
-        .footer-col ul li:hover{color:var(--white)}
-        .footer-contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;font-size:13px;color:var(--text-muted);line-height:1.5}
-        .footer-contact-item span:first-child{font-size:16px;flex-shrink:0;margin-top:1px}
-        .footer-bottom{padding-top:28px;border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-muted)}
+        .footer-col ul li{margin-bottom:11px;font-size:13px;color:rgba(255,255,255,.72);cursor:pointer;transition:color .3s}
+        .footer-col ul li:hover{color:rgba(255,255,255,.9)}
+        .footer-contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;font-size:13px;color:rgba(255,255,255,.72);line-height:1.55}
+        .footer-contact-item span:first-child{font-size:15px;flex-shrink:0;margin-top:1px}
+        .footer-bottom{padding-top:28px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.5)}
         .footer-flags{display:flex;gap:10px;font-size:22px}
 
         /* FADE */
-        .fade-up{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+        .fade-up{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
         .fade-up.visible{opacity:1;transform:translateY(0)}
-        .fade-up:nth-child(2){transition-delay:.1s}
-        .fade-up:nth-child(3){transition-delay:.2s}
+        .fade-up:nth-child(2){transition-delay:.08s}
+        .fade-up:nth-child(3){transition-delay:.16s}
 
-        /* ─── UNIVERSITIES ─── */
-        .uni-section{max-width:1240px;margin:0 auto;padding:80px 40px;position:relative;z-index:1}
-        .uni-intro-banner{background:linear-gradient(135deg,rgba(0,0,0,.8) 0%,rgba(25,15,0,.85) 100%);border:1px solid rgba(255,215,0,.15);border-radius:8px;padding:46px 50px;margin-bottom:50px;position:relative;overflow:hidden;display:flex;align-items:center;gap:30px}
-        .uni-intro-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 33%,rgba(255,215,0,.04) 33% 66%,rgba(193,39,45,.04) 66% 100%)}
-        .uni-intro-banner::after{content:'UNIVERSITIES';position:absolute;right:-40px;top:50%;transform:translateY(-50%) rotate(90deg);font-family:'Bebas Neue',sans-serif;font-size:100px;letter-spacing:6px;color:rgba(255,215,0,.03);pointer-events:none;white-space:nowrap}
-        .uni-intro-icon{font-size:56px;flex-shrink:0;position:relative;z-index:1;filter:drop-shadow(0 6px 16px rgba(0,0,0,.5))}
-        .uni-intro-text{position:relative;z-index:1}
-        .uni-intro-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;margin-bottom:10px}
-        .uni-intro-text h2 em{font-style:italic;color:var(--be-yellow)}
-        .uni-intro-text p{font-size:14px;color:var(--text-muted);line-height:1.7;max-width:600px}
-        /* Quick nav pills */
-        .uni-quicknav{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px}
-        .uni-qpill{padding:8px 18px;border-radius:30px;border:1px solid rgba(255,215,0,.15);color:var(--text-muted);font-size:11px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .25s;background:transparent;cursor:pointer}
-        .uni-qpill:hover{border-color:var(--be-yellow);color:var(--be-yellow);background:rgba(255,215,0,.06)}
-        /* Accordion cards */
-        .uni-accordion{display:flex;flex-direction:column;gap:16px}
-        .uni-card{background:var(--navy-mid);border:1px solid rgba(255,255,255,.06);border-radius:6px;overflow:hidden;transition:border-color .3s}
-        .uni-card.open{border-color:rgba(255,215,0,.25)}
-        .uni-card-header{display:flex;align-items:center;gap:20px;padding:26px 30px;cursor:pointer;transition:background .2s;user-select:none}
-        .uni-card-header:hover{background:rgba(255,215,0,.04)}
-        .uni-card-num{font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(255,215,0,.25);line-height:1;flex-shrink:0;width:36px}
-        .uni-card-flag-col{font-size:28px;flex-shrink:0}
-        .uni-card-meta{flex:1}
-        .uni-card-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--white);margin-bottom:4px;line-height:1.1}
-        .uni-card-tagline{font-size:12px;color:var(--text-muted);letter-spacing:1px}
-        .uni-card-badges{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
-        .uni-badge{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:14px;font-weight:500}
-        .badge-be{background:rgba(255,215,0,.1);color:var(--be-yellow);border:1px solid rgba(255,215,0,.2)}
-        .badge-en{background:rgba(100,160,255,.1);color:#80b4ff;border:1px solid rgba(100,160,255,.2)}
-        .badge-note{background:rgba(200,100,100,.1);color:#ff9999;border:1px solid rgba(200,100,100,.2)}
-        .uni-card-toggle{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,215,0,.2);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--be-yellow);transition:transform .3s,background .2s;flex-shrink:0}
-        .uni-card.open .uni-card-toggle{transform:rotate(180deg);background:rgba(255,215,0,.1)}
-        .uni-card-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.16,1,.3,1)}
-        .uni-card.open .uni-card-body{max-height:2000px}
-        .uni-card-inner{padding:0 30px 30px}
-        .uni-card-divider{height:1px;background:linear-gradient(to right,rgba(255,215,0,.15),transparent);margin-bottom:28px}
-        .uni-body-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
-        .uni-col-title{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--be-yellow);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-        .uni-col-title::after{content:'';flex:1;height:1px;background:rgba(255,215,0,.15)}
-        .uni-prog-list{list-style:none;display:flex;flex-direction:column;gap:7px}
-        .uni-prog-list li{font-size:13px;color:rgba(249,246,240,.75);padding-left:14px;position:relative;line-height:1.45}
-        .uni-prog-list li::before{content:'›';position:absolute;left:0;color:var(--be-yellow);font-size:15px;line-height:1.2}
-        .uni-prog-list li strong{color:var(--white);font-weight:500}
-        .uni-criteria-tabs{display:flex;gap:8px;margin-bottom:16px}
-        .ucritab{padding:6px 14px;border-radius:20px;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,.1);color:var(--text-muted);background:transparent;transition:all .2s}
-        .ucritab.active{background:rgba(255,215,0,.1);border-color:var(--be-yellow);color:var(--be-yellow)}
-        .ucri-panel{display:none}
-        .ucri-panel.show{display:block}
-        .ucri-list{list-style:none;display:flex;flex-direction:column;gap:8px}
-        .ucri-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(249,246,240,.75);line-height:1.5}
-        .ucri-dot{width:16px;height:16px;border-radius:50%;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.2);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--be-yellow);flex-shrink:0;margin-top:2px}
-        .ucri-list li strong{color:var(--white);font-weight:500}
-        .uni-note-box{background:rgba(255,215,0,.05);border-left:3px solid var(--be-yellow);border-radius:0 4px 4px 0;padding:12px 16px;margin-top:14px;font-size:12px;color:rgba(255,220,100,.8);line-height:1.6}
-        .uni-website-link{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:10px 20px;border:1px solid rgba(255,215,0,.2);border-radius:30px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--be-yellow);text-decoration:none;transition:all .3s;background:rgba(255,215,0,.05)}
-        .uni-website-link:hover{background:rgba(255,215,0,.12);border-color:var(--be-yellow)}
-
-        /* MOBILE */
         @media(max-width:900px){
-            nav{padding:16px 24px}
+            nav{padding:14px 22px}
             nav ul{display:none}
             .page-hero{padding:120px 24px 60px}
             .page-hero-inner{flex-direction:column;gap:24px}
@@ -222,26 +304,47 @@
             footer{padding:50px 24px 28px}
             .footer-top{grid-template-columns:1fr;gap:36px}
             .footer-bottom{flex-direction:column;gap:14px;text-align:center}
-            .form-section{padding:36px 24px}
+            .form-section{padding:36px 22px}
             .uni-body-grid{grid-template-columns:1fr}
-            .uni-intro-banner{flex-direction:column;padding:32px 24px}
-            .uni-card-inner{padding:0 20px 24px}
+            .uni-intro-banner{flex-direction:column;padding:32px 22px}
+            .uni-card-inner{padding:0 18px 22px}
         }
+        /* ── GLOBAL READABILITY BOOST ── */
+        body{font-weight:400}
+        :root{--text-muted:#3E5060;--text-soft:#56707F}
+        .dest-desc,.section-subtitle,.hero-desc,.fb-subtitle,.footer-desc,
+        .page-hero-desc,.living-banner-text p,.uni-intro-text p,
+        .system-divider-text p{font-weight:400;color:#3E5060}
+        .dest-tag,.hero-tag,.uni-card-tagline,.lcard-tag,
+        .fb-card-label,.visa-card-step,.section-label-text,
+        .section-eyebrow,.dest-eyebrow,.fb-eyebrow{font-weight:700;letter-spacing:3px}
+        .lcard-item,.doc-list li,.ucri-list li,.uni-prog-list li,
+        .footer-col ul li,.footer-contact-item{font-weight:400}
+        .lcard-item strong,.doc-list li strong,.ucri-list li strong,
+        .uni-prog-list li strong,.lcard-item-dot{font-weight:600}
+        .why-card p,.fb-perk,.common-doc-item{font-weight:400;color:#3E5060}
+        .page-hero-desc{color:#3E5060}
+        .dest-sub{color:#3E5060;font-weight:400}
+        .stat-label{font-weight:700}
+        .uni-card-tagline{color:#4A5B6C;font-weight:400}
+        .living-banner-text p,.uni-intro-text p{color:#3E5060}
+        input::placeholder,textarea::placeholder{color:#8A9EAF}
+        .form-note,.form-header p{color:#4A5B6C;font-weight:400}
+        .footer-bottom span{color:rgba(255,255,255,.55)}
+        select,input,textarea{font-weight:400;color:#1C2B3A}
+        .ucri-list li{color:#3E5060}
+        .uni-prog-list li{color:#3E5060}
+        .lcard-body .lcard-item{color:#3E5060}
+        .doc-list li{color:#3E5060}
+        .why-text{color:#3E5060}
     </style>
 </head>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PXM14STGBB"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-PXM14STGBB');
-</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PXM14STGBB');</script>
 <body>
 
 <!-- NAV -->
-<nav>
+<nav id="navbar">
     <a href="index.html" class="logo-img-link">
         <img src="logo.png" alt="NextStep Immigration" class="nav-logo-img">
     </a>
@@ -283,17 +386,12 @@
     </div>
 </div>
 
-<!-- ══════════ VISA REQUIREMENTS ══════════ -->
+<!-- VISA REQUIREMENTS -->
 <section id="visa" class="page-section">
-    <div class="section-label">
-        <div class="section-label-line"></div>
-        <div class="section-label-text">Visa Requirements</div>
-    </div>
+    <div class="section-label"><div class="section-label-line"></div><div class="section-label-text">Visa Requirements</div></div>
     <h2 class="section-heading">Belgium Student Visa — Step by Step</h2>
     <p class="section-sub">Everything you need to know to get your university offer letter and then submit your visa application at the Belgian Embassy in Dhaka.</p>
-
     <div class="visa-grid">
-        <!-- OFFER LETTER CARD -->
         <div class="visa-card fade-up">
             <div class="visa-card-icon">🎓</div>
             <div class="visa-card-step">Step 01 — University Application</div>
@@ -309,8 +407,6 @@
                 <li><div class="doc-check">✓</div><span><strong>Portfolio / Work Samples</strong> — Required only for arts, design, or architecture programs</span></li>
             </ul>
         </div>
-
-        <!-- EMBASSY CARD -->
         <div class="visa-card fade-up">
             <div class="visa-card-icon">🏛️</div>
             <div class="visa-card-step">Step 02 — Embassy Submission</div>
@@ -334,560 +430,536 @@
 
 <hr class="section-sep" style="max-width:1160px;margin:0 auto 0;position:relative;z-index:1">
 
-<!-- ══════════ TOP UNIVERSITIES ══════════ -->
+<!-- UNIVERSITIES -->
 <section id="universities" class="uni-section">
-
-    <div class="section-label">
-        <div class="section-label-line"></div>
-        <div class="section-label-text">Top Universities</div>
-    </div>
-    <h2 class="section-heading">English-Taught Universities in Belgium</h2>
-    <p class="section-sub" style="margin-bottom:40px">All 8 major Belgian universities offering English programmes — with admission criteria, degree levels, and direct website links.</p>
-
+    <div class="section-label"><div class="section-label-line"></div><div class="section-label-text">Top Universities</div></div>
+    <h2 class="section-heading">Universities & Hogescholen in Belgium</h2>
+    <p class="section-sub" style="margin-bottom:40px">Belgium has two distinct higher education systems — Research Universities and Universities of Applied Sciences (Hogescholen). Both offer English programmes and lead to recognised Belgian degrees. Click any institution to expand full details.</p>
     <div class="uni-intro-banner fade-up">
         <div class="uni-intro-icon">🏛️</div>
         <div class="uni-intro-text">
-            <h2>Belgium's <em>Top 8 Universities</em> for International Students</h2>
-            <p>Belgium has a world-class higher education system. Below are the most prominent universities offering English-taught programmes for international students, along with their specific admission requirements. Click any university to expand the full details.</p>
+            <h2>Belgium's <em>8 Research Universities</em> for International Students</h2>
+            <p>The most prominent Belgian research universities offering English-taught programmes, with specific admission requirements. Scroll further for Hogescholen (Applied Sciences) — a more practical and often more accessible route into Belgium.</p>
         </div>
     </div>
-
     <div class="uni-quicknav">
         <span class="uni-qpill" onclick="scrollToUni('ku-leuven')">🔵 KU Leuven</span>
-        <span class="uni-qpill" onclick="scrollToUni('ghent')">🟢 Ghent University</span>
+        <span class="uni-qpill" onclick="scrollToUni('ghent')">🟢 Ghent Univ.</span>
         <span class="uni-qpill" onclick="scrollToUni('vub')">🔴 VUB Brussels</span>
         <span class="uni-qpill" onclick="scrollToUni('uantwerp')">🟡 Univ. of Antwerp</span>
         <span class="uni-qpill" onclick="scrollToUni('uclouvain')">🟣 UCLouvain</span>
         <span class="uni-qpill" onclick="scrollToUni('ulb')">🔵 ULB Brussels</span>
-        <span class="uni-qpill" onclick="scrollToUni('hasselt')">🟠 Hasselt University</span>
+        <span class="uni-qpill" onclick="scrollToUni('hasselt')">🟠 Hasselt Univ.</span>
         <span class="uni-qpill" onclick="scrollToUni('uliege')">🔵 Univ. of Liège</span>
+        <span class="uni-qpill" style="border-color:rgba(80,160,255,.3);color:#3080D0;background:rgba(80,160,255,.05)" onclick="scrollToUni('kdg')">🎨 KdG</span>
+        <span class="uni-qpill" style="border-color:rgba(80,160,255,.3);color:#3080D0;background:rgba(80,160,255,.05)" onclick="scrollToUni('thomas-more')">📚 Thomas More</span>
+        <span class="uni-qpill" style="border-color:rgba(80,160,255,.3);color:#3080D0;background:rgba(80,160,255,.05)" onclick="scrollToUni('odisee')">🏫 Odisee</span>
+        <span class="uni-qpill" style="border-color:rgba(80,160,255,.3);color:#3080D0;background:rgba(80,160,255,.05)" onclick="scrollToUni('artevelde')">🗞️ Artevelde</span>
+        <span class="uni-qpill" style="border-color:rgba(80,160,255,.3);color:#3080D0;background:rgba(80,160,255,.05)" onclick="scrollToUni('vives')">✈️ VIVES</span>
     </div>
-
     <div class="uni-accordion">
-
-        <!-- 1. KU LEUVEN -->
         <div class="uni-card" id="ku-leuven">
             <div class="uni-card-header" onclick="toggleUni(this)">
-                <div class="uni-card-num">01</div>
-                <div class="uni-card-flag-col">🎓</div>
+                <div class="uni-card-num">01</div><div class="uni-card-flag-col">🎓</div>
                 <div class="uni-card-meta">
                     <div class="uni-card-name">KU Leuven</div>
                     <div class="uni-card-tagline">Europe's highest-ranked Belgian university · Leuven, Belgium</div>
-                    <div class="uni-card-badges">
-                        <span class="uni-badge badge-be">Top Ranked in Belgium</span>
-                        <span class="uni-badge badge-en">English Programmes</span>
-                        <span class="uni-badge badge-note">Bachelor's & Master's</span>
-                    </div>
+                    <div class="uni-card-badges"><span class="uni-badge badge-be">Top Ranked in Belgium</span><span class="uni-badge badge-en">English Programmes</span><span class="uni-badge badge-note">Bachelor's & Master's</span></div>
                 </div>
                 <div class="uni-card-toggle">▼</div>
             </div>
-            <div class="uni-card-body">
-                <div class="uni-card-inner">
-                    <div class="uni-card-divider"></div>
-                    <div class="uni-body-grid">
-                        <div>
-                            <div class="uni-col-title">English Programmes</div>
-                            <ul class="uni-prog-list">
-                                <li><strong>BSc Business Administration</strong></li>
-                                <li><strong>BSc Engineering Technology</strong></li>
-                                <li><strong>BSc European Studies</strong></li>
-                                <li>MSc Engineering (multiple tracks)</li>
-                                <li>MSc AI & Computer Science</li>
-                                <li>MSc Economics</li>
-                                <li>MSc International Politics</li>
-                                <li>MSc Biomedical Sciences</li>
-                                <li>MSc Business & Management</li>
-                                <li>MSc Data Science</li>
-                                <li>MSc Architecture</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Admission Criteria</div>
-                            <div class="uni-criteria-tabs">
-                                <button class="ucritab active" onclick="switchTab(this,'kul-bach')">Bachelor's</button>
-                                <button class="ucritab" onclick="switchTab(this,'kul-mast')">Master's</button>
-                            </div>
-                            <div id="kul-bach" class="ucri-panel show">
-                                <ul class="ucri-list">
-                                    <li><div class="ucri-dot">✓</div><span>Recognized secondary / high school diploma (SSC+HSC equivalent)</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Official academic transcripts</span></li>
-                                    <li><div class="ucri-dot">✓</div><span><strong>IELTS 6.5+</strong> or TOEFL iBT 79–94 (programme dependent)</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Strong mathematics background for engineering programmes</span></li>
-                                </ul>
-                            </div>
-                            <div id="kul-mast" class="ucri-panel">
-                                <ul class="ucri-list">
-                                    <li><div class="ucri-dot">✓</div><span>Relevant bachelor's degree in related field</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Good GPA / strong academic standing</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>English proficiency certificate (IELTS/TOEFL)</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>CV + motivation letter (some programmes)</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>2 recommendation letters (some programmes)</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Important Notes</div>
-                            <ul class="uni-prog-list">
-                                <li>Medicine & Dentistry require <strong>entrance exams</strong></li>
-                                <li>Engineering programmes need <strong>strong mathematics preparation</strong></li>
-                                <li>Largest university in Belgium — over 60,000 students</li>
-                                <li>Consistently ranked <strong>Top 100 globally</strong></li>
-                            </ul>
-                            <div class="uni-note-box">💡 KU Leuven is the most prestigious choice in Belgium. Highly competitive — apply early and ensure your SOP is outstanding.</div>
-                            <a href="https://www.kuleuven.be/english" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a>
-                        </div>
+            <div class="uni-card-body"><div class="uni-card-inner"><div class="uni-card-divider"></div>
+                <div class="uni-body-grid">
+                    <div><div class="uni-col-title">English Programmes</div><ul class="uni-prog-list"><li><strong>BSc Business Administration</strong></li><li><strong>BSc Engineering Technology</strong></li><li><strong>BSc European Studies</strong></li><li>MSc Engineering (multiple tracks)</li><li>MSc AI & Computer Science</li><li>MSc Economics</li><li>MSc International Politics</li><li>MSc Biomedical Sciences</li><li>MSc Data Science</li></ul></div>
+                    <div><div class="uni-col-title">Admission Criteria</div>
+                        <div class="uni-criteria-tabs"><button class="ucritab active" onclick="switchTab(this,'kul-bach')">Bachelor's</button><button class="ucritab" onclick="switchTab(this,'kul-mast')">Master's</button></div>
+                        <div id="kul-bach" class="ucri-panel show"><ul class="ucri-list"><li><div class="ucri-dot">✓</div><span>Recognized secondary diploma (SSC+HSC equivalent)</span></li><li><div class="ucri-dot">✓</div><span>Official academic transcripts</span></li><li><div class="ucri-dot">✓</div><span><strong>IELTS 6.5+</strong> or TOEFL iBT 79–94</span></li><li><div class="ucri-dot">✓</div><span>Strong mathematics background for engineering</span></li></ul></div>
+                        <div id="kul-mast" class="ucri-panel"><ul class="ucri-list"><li><div class="ucri-dot">✓</div><span>Relevant bachelor's degree</span></li><li><div class="ucri-dot">✓</div><span>Good GPA / strong academic standing</span></li><li><div class="ucri-dot">✓</div><span>IELTS/TOEFL certificate</span></li><li><div class="ucri-dot">✓</div><span>CV + motivation letter</span></li><li><div class="ucri-dot">✓</div><span>2 recommendation letters (some programmes)</span></li></ul></div>
                     </div>
+                    <div><div class="uni-col-title">Important Notes</div><ul class="uni-prog-list"><li>Medicine & Dentistry require <strong>entrance exams</strong></li><li>Largest university in Belgium — 60,000+ students</li><li>Consistently ranked <strong>Top 100 globally</strong></li></ul><div class="uni-note-box">💡 KU Leuven is the most prestigious choice in Belgium. Highly competitive — apply early and ensure your SOP is outstanding.</div><a href="https://www.kuleuven.be/english" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a></div>
                 </div>
-            </div>
+            </div></div>
         </div>
-
-        <!-- 2. GHENT UNIVERSITY -->
         <div class="uni-card" id="ghent">
             <div class="uni-card-header" onclick="toggleUni(this)">
-                <div class="uni-card-num">02</div>
-                <div class="uni-card-flag-col">🔬</div>
-                <div class="uni-card-meta">
-                    <div class="uni-card-name">Ghent University</div>
-                    <div class="uni-card-tagline">Engineering, Biotechnology & Sciences · Ghent, Belgium</div>
-                    <div class="uni-card-badges">
-                        <span class="uni-badge badge-be">Strong in Sciences</span>
-                        <span class="uni-badge badge-en">Master's Focus</span>
-                    </div>
-                </div>
+                <div class="uni-card-num">02</div><div class="uni-card-flag-col">🔬</div>
+                <div class="uni-card-meta"><div class="uni-card-name">Ghent University</div><div class="uni-card-tagline">Engineering, Biotechnology & Sciences · Ghent, Belgium</div><div class="uni-card-badges"><span class="uni-badge badge-be">Strong in Sciences</span><span class="uni-badge badge-en">Master's Focus</span></div></div>
                 <div class="uni-card-toggle">▼</div>
             </div>
-            <div class="uni-card-body">
-                <div class="uni-card-inner">
-                    <div class="uni-card-divider"></div>
-                    <div class="uni-body-grid">
-                        <div>
-                            <div class="uni-col-title">English Programmes</div>
-                            <ul class="uni-prog-list">
-                                <li>MSc Computer Science Engineering</li>
-                                <li>MSc Biomedical Engineering</li>
-                                <li>MSc Aquaculture</li>
-                                <li>MSc Environmental Sanitation</li>
-                                <li>MSc Photonics</li>
-                                <li>MSc Bioinformatics</li>
-                                <li><strong>Limited English bachelor's options</strong></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Admission Criteria</div>
-                            <div class="uni-criteria-tabs">
-                                <button class="ucritab active" onclick="switchTab(this,'gu-bach')">Bachelor's</button>
-                                <button class="ucritab" onclick="switchTab(this,'gu-mast')">Master's</button>
-                            </div>
-                            <div id="gu-bach" class="ucri-panel show">
-                                <ul class="ucri-list">
-                                    <li><div class="ucri-dot">✓</div><span>High school diploma equivalent to Belgian standards</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Proof of English proficiency</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Some programmes may require Dutch proficiency</span></li>
-                                </ul>
-                            </div>
-                            <div id="gu-mast" class="ucri-panel">
-                                <ul class="ucri-list">
-                                    <li><div class="ucri-dot">✓</div><span>Relevant bachelor's degree</span></li>
-                                    <li><div class="ucri-dot">✓</div><span><strong>IELTS 6.5+</strong> or TOEFL accepted</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Motivation letter (some programmes)</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Important Notes</div>
-                            <ul class="uni-prog-list">
-                                <li><strong>Engineering and science</strong> programmes are especially strong</li>
-                                <li>Internationally recognized research university</li>
-                                <li>Ghent is a very student-friendly, affordable city</li>
-                            </ul>
-                            <div class="uni-note-box">💡 Best for students interested in STEM fields. Ghent is consistently ranked among the top 100 universities in Europe.</div>
-                            <a href="https://www.ugent.be/en" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a>
-                        </div>
+            <div class="uni-card-body"><div class="uni-card-inner"><div class="uni-card-divider"></div>
+                <div class="uni-body-grid">
+                    <div><div class="uni-col-title">English Programmes</div><ul class="uni-prog-list"><li>MSc Computer Science Engineering</li><li>MSc Biomedical Engineering</li><li>MSc Aquaculture</li><li>MSc Environmental Sanitation</li><li>MSc Photonics</li><li>MSc Bioinformatics</li></ul></div>
+                    <div><div class="uni-col-title">Admission Criteria</div>
+                        <div class="uni-criteria-tabs"><button class="ucritab active" onclick="switchTab(this,'gu-bach')">Bachelor's</button><button class="ucritab" onclick="switchTab(this,'gu-mast')">Master's</button></div>
+                        <div id="gu-bach" class="ucri-panel show"><ul class="ucri-list"><li><div class="ucri-dot">✓</div><span>High school diploma equivalent to Belgian standards</span></li><li><div class="ucri-dot">✓</div><span>Proof of English proficiency</span></li></ul></div>
+                        <div id="gu-mast" class="ucri-panel"><ul class="ucri-list"><li><div class="ucri-dot">✓</div><span>Relevant bachelor's degree</span></li><li><div class="ucri-dot">✓</div><span><strong>IELTS 6.5+</strong> or TOEFL accepted</span></li><li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li></ul></div>
                     </div>
+                    <div><div class="uni-col-title">Important Notes</div><ul class="uni-prog-list"><li><strong>Engineering and science</strong> programmes especially strong</li><li>Ghent is very student-friendly and affordable</li></ul><div class="uni-note-box">💡 Best for STEM fields. Consistently ranked among Europe's top 100 universities.</div><a href="https://www.ugent.be/en" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a></div>
                 </div>
-            </div>
+            </div></div>
         </div>
-
-        <!-- 3. VUB -->
         <div class="uni-card" id="vub">
             <div class="uni-card-header" onclick="toggleUni(this)">
-                <div class="uni-card-num">03</div>
-                <div class="uni-card-flag-col">🌐</div>
-                <div class="uni-card-meta">
-                    <div class="uni-card-name">Vrije Universiteit Brussel (VUB)</div>
-                    <div class="uni-card-tagline">Highly international · Located in Brussels, Belgium</div>
-                    <div class="uni-card-badges">
-                        <span class="uni-badge badge-be">Brussels Based</span>
-                        <span class="uni-badge badge-en">Very International</span>
-                        <span class="uni-badge badge-note">EU Policy Focus</span>
-                    </div>
-                </div>
+                <div class="uni-card-num">03</div><div class="uni-card-flag-col">🌐</div>
+                <div class="uni-card-meta"><div class="uni-card-name">Vrije Universiteit Brussel (VUB)</div><div class="uni-card-tagline">Highly international · Located in Brussels, Belgium</div><div class="uni-card-badges"><span class="uni-badge badge-be">Brussels Based</span><span class="uni-badge badge-en">Very International</span><span class="uni-badge badge-note">EU Policy Focus</span></div></div>
                 <div class="uni-card-toggle">▼</div>
             </div>
-            <div class="uni-card-body">
-                <div class="uni-card-inner">
-                    <div class="uni-card-divider"></div>
-                    <div class="uni-body-grid">
-                        <div>
-                            <div class="uni-col-title">English Programmes</div>
-                            <ul class="uni-prog-list">
-                                <li><strong>BSc Social Sciences</strong></li>
-                                <li><strong>BSc Business Economics</strong></li>
-                                <li>MSc Political Science</li>
-                                <li>MSc International Business</li>
-                                <li>MSc Computer Science</li>
-                                <li>MSc Artificial Intelligence</li>
-                                <li>MSc Engineering</li>
-                                <li>MSc Communication Studies</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Admission Criteria</div>
-                            <div class="uni-criteria-tabs">
-                                <button class="ucritab active" onclick="switchTab(this,'vub-bach')">Bachelor's</button>
-                                <button class="ucritab" onclick="switchTab(this,'vub-mast')">Master's</button>
-                            </div>
-                            <div id="vub-bach" class="ucri-panel show">
-                                <ul class="ucri-list">
-                                    <li><div class="ucri-dot">✓</div><span>Recognized high school diploma</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>English proficiency proof</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Prior mathematics knowledge for technical programmes</span></li>
-                                </ul>
-                            </div>
-                            <div id="vub-mast" class="ucri-panel">
-                                <ul class="ucri-list">
-                                    <li><div class="ucri-dot">✓</div><span>Relevant bachelor's degree</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>IELTS / TOEFL / Cambridge accepted</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Academic records</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Motivation letter (some programmes)</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Important Notes</div>
-                            <ul class="uni-prog-list">
-                                <li>Located in <strong>Brussels — EU capital</strong> — huge career networking advantage</li>
-                                <li>Highly respected in <strong>EU policy & international relations</strong></li>
-                                <li>Very diverse international student community</li>
-                            </ul>
-                            <div class="uni-note-box">💡 VUB's Brussels location gives unmatched access to EU institutions, NGOs and international organizations for internships and jobs.</div>
-                            <a href="https://www.vub.be/en" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a>
-                        </div>
+            <div class="uni-card-body"><div class="uni-card-inner"><div class="uni-card-divider"></div>
+                <div class="uni-body-grid">
+                    <div><div class="uni-col-title">English Programmes</div><ul class="uni-prog-list"><li><strong>BSc Social Sciences</strong></li><li><strong>BSc Business Economics</strong></li><li>MSc Political Science</li><li>MSc International Business</li><li>MSc Computer Science</li><li>MSc Artificial Intelligence</li><li>MSc Engineering</li></ul></div>
+                    <div><div class="uni-col-title">Admission Criteria</div>
+                        <div class="uni-criteria-tabs"><button class="ucritab active" onclick="switchTab(this,'vub-bach')">Bachelor's</button><button class="ucritab" onclick="switchTab(this,'vub-mast')">Master's</button></div>
+                        <div id="vub-bach" class="ucri-panel show"><ul class="ucri-list"><li><div class="ucri-dot">✓</div><span>Recognized high school diploma</span></li><li><div class="ucri-dot">✓</div><span>English proficiency proof</span></li></ul></div>
+                        <div id="vub-mast" class="ucri-panel"><ul class="ucri-list"><li><div class="ucri-dot">✓</div><span>Relevant bachelor's degree</span></li><li><div class="ucri-dot">✓</div><span>IELTS / TOEFL / Cambridge accepted</span></li><li><div class="ucri-dot">✓</div><span>Motivation letter (some programmes)</span></li></ul></div>
                     </div>
+                    <div><div class="uni-col-title">Important Notes</div><ul class="uni-prog-list"><li>Located in <strong>Brussels — EU capital</strong></li><li>Ideal for EU policy & international relations</li></ul><div class="uni-note-box">💡 VUB's Brussels location gives unmatched access to EU institutions, NGOs, and international organizations.</div><a href="https://www.vub.be/en" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a></div>
                 </div>
-            </div>
+            </div></div>
         </div>
-
-        <!-- 4. UNIVERSITY OF ANTWERP -->
         <div class="uni-card" id="uantwerp">
             <div class="uni-card-header" onclick="toggleUni(this)">
-                <div class="uni-card-num">04</div>
-                <div class="uni-card-flag-col">⚓</div>
-                <div class="uni-card-meta">
-                    <div class="uni-card-name">University of Antwerp</div>
-                    <div class="uni-card-tagline">Business, Logistics & Biomedical Sciences · Antwerp, Belgium</div>
-                    <div class="uni-card-badges">
-                        <span class="uni-badge badge-be">Business & Logistics</span>
-                        <span class="uni-badge badge-en">English Programmes</span>
-                    </div>
-                </div>
+                <div class="uni-card-num">04</div><div class="uni-card-flag-col">⚓</div>
+                <div class="uni-card-meta"><div class="uni-card-name">University of Antwerp</div><div class="uni-card-tagline">Business, Logistics & Biomedical Sciences · Antwerp, Belgium</div><div class="uni-card-badges"><span class="uni-badge badge-be">Business & Logistics</span><span class="uni-badge badge-en">English Programmes</span></div></div>
                 <div class="uni-card-toggle">▼</div>
             </div>
-            <div class="uni-card-body">
-                <div class="uni-card-inner">
-                    <div class="uni-card-divider"></div>
-                    <div class="uni-body-grid">
-                        <div>
-                            <div class="uni-col-title">English Programmes</div>
-                            <ul class="uni-prog-list">
-                                <li><strong>BSc Social-Economic Sciences</strong></li>
-                                <li>MSc Transport & Maritime Management</li>
-                                <li>MSc Biomedical Sciences</li>
-                                <li>MSc Computer Science</li>
-                                <li>MSc Global Management</li>
-                                <li>MSc Political Science</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Admission Criteria</div>
-                            <div class="uni-criteria-tabs">
-                                <button class="ucritab active" onclick="switchTab(this,'ua-bach')">Bachelor's</button>
-                                <button class="ucritab" onclick="switchTab(this,'ua-mast')">Master's</button>
-                            </div>
-                            <div id="ua-bach" class="ucri-panel show">
-                                <ul class="ucri-list">
-                                    <li><div class="ucri-dot">✓</div><span>Recognized secondary diploma</span></li>
-                                    <li><div class="ucri-dot">✓</div><span><strong>IELTS 6.5</strong> / TOEFL / Cambridge B2 First / PTE Academic</span></li>
-                                </ul>
-                            </div>
-                            <div id="ua-mast" class="ucri-panel">
-                                <ul class="ucri-list">
-                                    <li><div class="ucri-dot">✓</div><span>Relevant bachelor's degree</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>English proficiency (IELTS/TOEFL/Cambridge/PTE)</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>CV or motivation letter (some programmes)</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Important Notes</div>
-                            <ul class="uni-prog-list">
-                                <li>Antwerp is Belgium's <strong>port and diamond city</strong> — strong logistics industry ties</li>
-                                <li>Accepts IELTS, TOEFL, <strong>Cambridge, and PTE Academic</strong></li>
-                                <li>Excellent for business and supply chain careers</li>
-                            </ul>
-                            <div class="uni-note-box">💡 Ideal for students targeting logistics, global trade, or biomedical careers. Antwerp is a vibrant, affordable city.</div>
-                            <a href="https://www.uantwerpen.be/en" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a>
-                        </div>
+            <div class="uni-card-body"><div class="uni-card-inner"><div class="uni-card-divider"></div>
+                <div class="uni-body-grid">
+                    <div><div class="uni-col-title">English Programmes</div><ul class="uni-prog-list"><li><strong>BSc Social-Economic Sciences</strong></li><li>MSc Transport & Maritime Management</li><li>MSc Biomedical Sciences</li><li>MSc Computer Science</li><li>MSc Global Management</li></ul></div>
+                    <div><div class="uni-col-title">Admission Criteria</div>
+                        <div class="uni-criteria-tabs"><button class="ucritab active" onclick="switchTab(this,'ua-bach')">Bachelor's</button><button class="ucritab" onclick="switchTab(this,'ua-mast')">Master's</button></div>
+                        <div id="ua-bach" class="ucri-panel show"><ul class="ucri-list"><li><div class="ucri-dot">✓</div><span>Recognized secondary diploma</span></li><li><div class="ucri-dot">✓</div><span><strong>IELTS 6.5</strong> / TOEFL / Cambridge B2 / PTE</span></li></ul></div>
+                        <div id="ua-mast" class="ucri-panel"><ul class="ucri-list"><li><div class="ucri-dot">✓</div><span>Relevant bachelor's degree</span></li><li><div class="ucri-dot">✓</div><span>English proficiency (IELTS/TOEFL/Cambridge/PTE)</span></li></ul></div>
                     </div>
+                    <div><div class="uni-col-title">Important Notes</div><ul class="uni-prog-list"><li>Antwerp — Belgium's <strong>port and diamond city</strong></li><li>Excellent for logistics and supply chain careers</li></ul><div class="uni-note-box">💡 Ideal for logistics, global trade, or biomedical careers. Antwerp is vibrant and affordable.</div><a href="https://www.uantwerpen.be/en" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a></div>
                 </div>
-            </div>
+            </div></div>
         </div>
-
-        <!-- 5. UCLouvain -->
         <div class="uni-card" id="uclouvain">
             <div class="uni-card-header" onclick="toggleUni(this)">
-                <div class="uni-card-num">05</div>
-                <div class="uni-card-flag-col">📐</div>
-                <div class="uni-card-meta">
-                    <div class="uni-card-name">UCLouvain (Université catholique de Louvain)</div>
-                    <div class="uni-card-tagline">Business, Economics & Data Science · Louvain-la-Neuve, Belgium</div>
-                    <div class="uni-card-badges">
-                        <span class="uni-badge badge-be">French-Speaking</span>
-                        <span class="uni-badge badge-en">Some English Tracks</span>
-                    </div>
-                </div>
+                <div class="uni-card-num">05</div><div class="uni-card-flag-col">📐</div>
+                <div class="uni-card-meta"><div class="uni-card-name">UCLouvain</div><div class="uni-card-tagline">Business, Economics & Data Science · Louvain-la-Neuve, Belgium</div><div class="uni-card-badges"><span class="uni-badge badge-be">French-Speaking</span><span class="uni-badge badge-en">Some English Tracks</span></div></div>
                 <div class="uni-card-toggle">▼</div>
             </div>
-            <div class="uni-card-body">
-                <div class="uni-card-inner">
-                    <div class="uni-card-divider"></div>
-                    <div class="uni-body-grid">
-                        <div>
-                            <div class="uni-col-title">English Programmes</div>
-                            <ul class="uni-prog-list">
-                                <li>Business Engineering</li>
-                                <li>Economics</li>
-                                <li>Data Science</li>
-                                <li>Management</li>
-                                <li>International Relations</li>
-                                <li><strong>Some bilingual French-English programmes</strong></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Admission Criteria</div>
-                            <div class="uni-criteria-tabs">
-                                <button class="ucritab active" onclick="switchTab(this,'ucl-bach')">Bachelor's</button>
-                                <button class="ucritab" onclick="switchTab(this,'ucl-mast')">Master's</button>
-                            </div>
-                            <div id="ucl-bach" class="ucri-panel show">
-                                <ul class="ucri-list">
-                                    <li><div class="ucri-dot">✓</div><span>Secondary school diploma</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Some programmes require <strong>French proficiency</strong></span></li>
-                                    <li><div class="ucri-dot">✓</div><span>English-track programmes require English proof</span></li>
-                                </ul>
-                            </div>
-                            <div id="ucl-mast" class="ucri-panel">
-                                <ul class="ucri-list">
-                                    <li><div class="ucri-dot">✓</div><span>Relevant bachelor's degree</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Language proof (English or French depending on programme)</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Programme-specific requirements</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Important Notes</div>
-                            <ul class="uni-prog-list">
-                                <li>Many programmes are <strong>bilingual</strong> rather than fully English</li>
-                                <li>Very strong in economics, business, and law</li>
-                                <li>Located in a purpose-built university town</li>
-                            </ul>
-                            <div class="uni-note-box">💡 Learning basic French before applying to UCLouvain will significantly strengthen your application and daily life experience.</div>
-                            <a href="https://uclouvain.be/en/index.html" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a>
-                        </div>
+            <div class="uni-card-body"><div class="uni-card-inner"><div class="uni-card-divider"></div>
+                <div class="uni-body-grid">
+                    <div><div class="uni-col-title">English Programmes</div><ul class="uni-prog-list"><li>Business Engineering</li><li>Economics</li><li>Data Science</li><li>International Relations</li><li><strong>Some bilingual French-English programmes</strong></li></ul></div>
+                    <div><div class="uni-col-title">Admission Criteria</div>
+                        <div class="uni-criteria-tabs"><button class="ucritab active" onclick="switchTab(this,'ucl-bach')">Bachelor's</button><button class="ucritab" onclick="switchTab(this,'ucl-mast')">Master's</button></div>
+                        <div id="ucl-bach" class="ucri-panel show"><ul class="ucri-list"><li><div class="ucri-dot">✓</div><span>Secondary school diploma</span></li><li><div class="ucri-dot">✓</div><span>Some programmes require <strong>French proficiency</strong></span></li></ul></div>
+                        <div id="ucl-mast" class="ucri-panel"><ul class="ucri-list"><li><div class="ucri-dot">✓</div><span>Relevant bachelor's degree</span></li><li><div class="ucri-dot">✓</div><span>Language proof (English or French depending on programme)</span></li></ul></div>
                     </div>
+                    <div><div class="uni-col-title">Important Notes</div><ul class="uni-prog-list"><li>Many programmes are <strong>bilingual</strong>, not fully English</li><li>Very strong in economics, business, and law</li></ul><div class="uni-note-box">💡 Learning basic French before applying will significantly strengthen your application.</div><a href="https://uclouvain.be/en/index.html" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a></div>
                 </div>
-            </div>
+            </div></div>
         </div>
-
-        <!-- 6. ULB -->
         <div class="uni-card" id="ulb">
             <div class="uni-card-header" onclick="toggleUni(this)">
-                <div class="uni-card-num">06</div>
-                <div class="uni-card-flag-col">🔭</div>
-                <div class="uni-card-meta">
-                    <div class="uni-card-name">Université libre de Bruxelles (ULB)</div>
-                    <div class="uni-card-tagline">Research University · Brussels, Belgium</div>
-                    <div class="uni-card-badges">
-                        <span class="uni-badge badge-be">Brussels Based</span>
-                        <span class="uni-badge badge-en">Growing English Offer</span>
-                    </div>
-                </div>
+                <div class="uni-card-num">06</div><div class="uni-card-flag-col">🔭</div>
+                <div class="uni-card-meta"><div class="uni-card-name">Université libre de Bruxelles (ULB)</div><div class="uni-card-tagline">Research University · Brussels, Belgium</div><div class="uni-card-badges"><span class="uni-badge badge-be">Brussels Based</span><span class="uni-badge badge-en">Growing English Offer</span></div></div>
                 <div class="uni-card-toggle">▼</div>
             </div>
-            <div class="uni-card-body">
-                <div class="uni-card-inner">
-                    <div class="uni-card-divider"></div>
-                    <div class="uni-body-grid">
-                        <div>
-                            <div class="uni-col-title">English Programmes</div>
-                            <ul class="uni-prog-list">
-                                <li>MSc Political Science</li>
-                                <li>MSc Environmental Sciences</li>
-                                <li>MSc Engineering</li>
-                                <li>MSc Public Health</li>
-                                <li>MSc Economics</li>
-                                <li><strong>Most bachelor's still mainly in French</strong></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Admission Criteria</div>
-                            <div class="uni-criteria-tabs">
-                                <button class="ucritab active" onclick="switchTab(this,'ulb-all')">General</button>
-                            </div>
-                            <div id="ulb-all" class="ucri-panel show">
-                                <ul class="ucri-list">
-                                    <li><div class="ucri-dot">✓</div><span>Relevant prior degree for master's programmes</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>English proficiency certificate</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Motivation letter (some programmes)</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Important Notes</div>
-                            <ul class="uni-prog-list">
-                                <li>One of the <strong>largest French-speaking universities</strong> in Belgium</li>
-                                <li>Strong research output and Nobel Prize alumni</li>
-                                <li>French language learning <strong>strongly recommended</strong></li>
-                            </ul>
-                            <div class="uni-note-box">💡 ULB is ideal for Master's students. French proficiency opens many more doors here than English alone.</div>
-                            <a href="https://www.ulb.be/en" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a>
-                        </div>
+            <div class="uni-card-body"><div class="uni-card-inner"><div class="uni-card-divider"></div>
+                <div class="uni-body-grid">
+                    <div><div class="uni-col-title">English Programmes</div><ul class="uni-prog-list"><li>MSc Political Science</li><li>MSc Environmental Sciences</li><li>MSc Engineering</li><li>MSc Public Health</li><li>MSc Economics</li></ul></div>
+                    <div><div class="uni-col-title">Admission Criteria</div>
+                        <div class="uni-criteria-tabs"><button class="ucritab active" onclick="switchTab(this,'ulb-all')">General</button></div>
+                        <div id="ulb-all" class="ucri-panel show"><ul class="ucri-list"><li><div class="ucri-dot">✓</div><span>Relevant prior degree for master's</span></li><li><div class="ucri-dot">✓</div><span>English proficiency certificate</span></li><li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li></ul></div>
                     </div>
+                    <div><div class="uni-col-title">Important Notes</div><ul class="uni-prog-list"><li>Strong research output and Nobel Prize alumni</li><li>French language <strong>strongly recommended</strong></li></ul><div class="uni-note-box">💡 ULB is ideal for Master's students. French proficiency opens many more doors here.</div><a href="https://www.ulb.be/en" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a></div>
                 </div>
-            </div>
+            </div></div>
         </div>
-
-        <!-- 7. HASSELT UNIVERSITY -->
         <div class="uni-card" id="hasselt">
             <div class="uni-card-header" onclick="toggleUni(this)">
-                <div class="uni-card-num">07</div>
-                <div class="uni-card-flag-col">📊</div>
-                <div class="uni-card-meta">
-                    <div class="uni-card-name">Hasselt University</div>
-                    <div class="uni-card-tagline">International Focus · Hasselt, Belgium</div>
-                    <div class="uni-card-badges">
-                        <span class="uni-badge badge-be">Smaller Campus</span>
-                        <span class="uni-badge badge-en">International Focus</span>
-                    </div>
-                </div>
+                <div class="uni-card-num">07</div><div class="uni-card-flag-col">📊</div>
+                <div class="uni-card-meta"><div class="uni-card-name">Hasselt University</div><div class="uni-card-tagline">International Focus · Hasselt, Belgium</div><div class="uni-card-badges"><span class="uni-badge badge-be">Smaller Campus</span><span class="uni-badge badge-en">International Focus</span></div></div>
                 <div class="uni-card-toggle">▼</div>
             </div>
-            <div class="uni-card-body">
-                <div class="uni-card-inner">
-                    <div class="uni-card-divider"></div>
-                    <div class="uni-body-grid">
-                        <div>
-                            <div class="uni-col-title">English Programmes</div>
-                            <ul class="uni-prog-list">
-                                <li>Transportation Sciences</li>
-                                <li>Statistics & Data Science</li>
-                                <li>Biomedical Sciences</li>
-                                <li>Management</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Admission Criteria</div>
-                            <div class="uni-criteria-tabs">
-                                <button class="ucritab active" onclick="switchTab(this,'has-all')">General</button>
-                            </div>
-                            <div id="has-all" class="ucri-panel show">
-                                <ul class="ucri-list">
-                                    <li><div class="ucri-dot">✓</div><span>Relevant previous diploma (bachelor's for master's)</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>English proficiency proof</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Important Notes</div>
-                            <ul class="uni-prog-list">
-                                <li>Small campus = <strong>more personal attention</strong> from lecturers</li>
-                                <li>Excellent for <strong>transport, logistics, and data science</strong></li>
-                                <li>Growing international student community</li>
-                            </ul>
-                            <div class="uni-note-box">💡 Hasselt is a great choice for students seeking a close-knit academic community and niche postgraduate specializations.</div>
-                            <a href="https://www.uhasselt.be/en" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a>
-                        </div>
+            <div class="uni-card-body"><div class="uni-card-inner"><div class="uni-card-divider"></div>
+                <div class="uni-body-grid">
+                    <div><div class="uni-col-title">English Programmes</div><ul class="uni-prog-list"><li>Transportation Sciences</li><li>Statistics & Data Science</li><li>Biomedical Sciences</li><li>Management</li></ul></div>
+                    <div><div class="uni-col-title">Admission Criteria</div>
+                        <div class="uni-criteria-tabs"><button class="ucritab active" onclick="switchTab(this,'has-all')">General</button></div>
+                        <div id="has-all" class="ucri-panel show"><ul class="ucri-list"><li><div class="ucri-dot">✓</div><span>Relevant previous diploma</span></li><li><div class="ucri-dot">✓</div><span>English proficiency proof</span></li><li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li></ul></div>
                     </div>
+                    <div><div class="uni-col-title">Important Notes</div><ul class="uni-prog-list"><li>Small campus = <strong>more personal attention</strong></li><li>Excellent for transport, logistics, and data science</li></ul><div class="uni-note-box">💡 Great choice for students seeking a close-knit academic community and niche postgraduate specializations.</div><a href="https://www.uhasselt.be/en" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a></div>
                 </div>
-            </div>
+            </div></div>
         </div>
-
-        <!-- 8. UNIVERSITY OF LIÈGE -->
         <div class="uni-card" id="uliege">
             <div class="uni-card-header" onclick="toggleUni(this)">
-                <div class="uni-card-num">08</div>
-                <div class="uni-card-flag-col">🚀</div>
+                <div class="uni-card-num">08</div><div class="uni-card-flag-col">🚀</div>
+                <div class="uni-card-meta"><div class="uni-card-name">University of Liège</div><div class="uni-card-tagline">Space, Engineering & Sciences · Liège, Belgium</div><div class="uni-card-badges"><span class="uni-badge badge-be">French-Speaking</span><span class="uni-badge badge-en">Selected English Master's</span></div></div>
+                <div class="uni-card-toggle">▼</div>
+            </div>
+            <div class="uni-card-body"><div class="uni-card-inner"><div class="uni-card-divider"></div>
+                <div class="uni-body-grid">
+                    <div><div class="uni-col-title">English Programmes</div><ul class="uni-prog-list"><li>MSc Space Sciences</li><li>MSc Environmental Sciences</li><li>MSc Engineering (selected tracks)</li><li>MSc Business</li></ul></div>
+                    <div><div class="uni-col-title">Admission Criteria</div>
+                        <div class="uni-criteria-tabs"><button class="ucritab active" onclick="switchTab(this,'ulg-all')">General</button></div>
+                        <div id="ulg-all" class="ucri-panel show"><ul class="ucri-list"><li><div class="ucri-dot">✓</div><span>Bachelor's degree in related field</span></li><li><div class="ucri-dot">✓</div><span>English language proof</span></li><li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li></ul></div>
+                    </div>
+                    <div><div class="uni-col-title">Important Notes</div><ul class="uni-prog-list"><li>World-class in <strong>aerospace and space sciences</strong></li><li>Liège is an affordable, vibrant student city</li></ul><div class="uni-note-box">💡 If your dream is space sciences or aerospace engineering in Europe, University of Liège is a world-class choice.</div><a href="https://www.uliege.be/cms/c_8699436/en/uliege" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a></div>
+                </div>
+            </div></div>
+        </div>
+    </div>
+
+    <!-- SYSTEM DIVIDER -->
+    <div class="system-divider fade-up">
+        <div class="system-divider-icon">🏫</div>
+        <div class="system-divider-text">
+            <h3>Universities of Applied Sciences — <em>Hogescholen</em></h3>
+            <p>Belgium's Hogescholen are a completely separate and equally valid higher education track. They focus on practical, job-oriented learning with strong internship components — making graduates highly employable. Entry requirements are generally more accessible than research universities, and programmes are bachelor's level (3–4 years). A bridge or pre-master year is usually required before entry into a research master's degree.</p>
+            <div class="system-compare">
+                <div class="system-compare-col col-research">
+                    <h4>Research Universities</h4>
+                    <ul>
+                        <li>KU Leuven, Ghent, VUB, ULB etc.</li>
+                        <li>Theory-heavy, academic focus</li>
+                        <li>Higher entry requirements</li>
+                        <li>Direct path to research master's</li>
+                        <li>Tuition: usually lower (public)</li>
+                    </ul>
+                </div>
+                <div class="system-compare-col col-applied">
+                    <h4>Hogescholen (Applied Sciences)</h4>
+                    <ul>
+                        <li>KdG, Thomas More, Odisee, VIVES etc.</li>
+                        <li>Practical, industry-oriented</li>
+                        <li>More accessible entry criteria</li>
+                        <li>Bridge year needed for some masters</li>
+                        <li>Tuition: €6,000–€9,300/yr (non-EEA)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOGESCHOLEN ACCORDION -->
+    <div class="uni-accordion">
+
+        <!-- KdG -->
+        <div class="uni-card" id="kdg">
+            <div class="uni-card-header" onclick="toggleUni(this)">
+                <div class="uni-card-num">09</div><div class="uni-card-flag-col">🎨</div>
                 <div class="uni-card-meta">
-                    <div class="uni-card-name">University of Liège</div>
-                    <div class="uni-card-tagline">Space, Engineering & Sciences · Liège, Belgium</div>
+                    <div class="uni-card-name">KdG University of Applied Sciences and Arts</div>
+                    <div class="uni-card-tagline">Applied Sciences & Arts · Antwerp, Belgium</div>
                     <div class="uni-card-badges">
-                        <span class="uni-badge badge-be">French-Speaking</span>
-                        <span class="uni-badge badge-en">Selected English Master's</span>
+                        <span class="uni-badge badge-applied">Hogeschool</span>
+                        <span class="uni-badge badge-en">English Programmes</span>
+                        <span class="uni-badge badge-fee">~€7,530/year</span>
                     </div>
                 </div>
                 <div class="uni-card-toggle">▼</div>
             </div>
-            <div class="uni-card-body">
-                <div class="uni-card-inner">
-                    <div class="uni-card-divider"></div>
-                    <div class="uni-body-grid">
-                        <div>
-                            <div class="uni-col-title">English Programmes</div>
-                            <ul class="uni-prog-list">
-                                <li>MSc Space Sciences</li>
-                                <li>MSc Environmental Sciences</li>
-                                <li>MSc Engineering (selected tracks)</li>
-                                <li>MSc Business</li>
+            <div class="uni-card-body"><div class="uni-card-inner"><div class="uni-card-divider"></div>
+                <div class="uni-body-grid">
+                    <div>
+                        <div class="uni-col-title">English Programmes</div>
+                        <ul class="uni-prog-list">
+                            <li>Business Management</li>
+                            <li>International Business</li>
+                            <li>Office Management</li>
+                            <li>Applied Computer Science</li>
+                            <li>Digital Design & Development</li>
+                            <li>Journalism</li>
+                            <li>Social Work</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="uni-col-title">Admission Criteria</div>
+                        <div class="uni-criteria-tabs"><button class="ucritab active" onclick="switchTab(this,'kdg-all')">Requirements</button></div>
+                        <div id="kdg-all" class="ucri-panel show">
+                            <ul class="ucri-list">
+                                <li><div class="ucri-dot">✓</div><span>Recognized secondary / high school diploma giving access to higher education</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li>
+                                <li><div class="ucri-dot">✓</div><span><strong>CEFR B2 English</strong> — IELTS / TOEFL accepted</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Passport copy</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Motivation letter (some programmes)</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Application fee required at submission</span></li>
                             </ul>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Admission Criteria</div>
-                            <div class="uni-criteria-tabs">
-                                <button class="ucritab active" onclick="switchTab(this,'ulg-all')">General</button>
-                            </div>
-                            <div id="ulg-all" class="ucri-panel show">
-                                <ul class="ucri-list">
-                                    <li><div class="ucri-dot">✓</div><span>Bachelor's degree in related field</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>English language proof</span></li>
-                                    <li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="uni-col-title">Important Notes</div>
-                            <ul class="uni-prog-list">
-                                <li>World-class reputation in <strong>aerospace and space sciences</strong></li>
-                                <li>Strong engineering faculty</li>
-                                <li>Liège is an affordable, vibrant student city</li>
-                            </ul>
-                            <div class="uni-note-box">💡 If your dream is space sciences or aerospace engineering in Europe, University of Liège is a genuinely world-class choice.</div>
-                            <a href="https://www.uliege.be/cms/c_8699436/en/uliege" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a>
                         </div>
                     </div>
+                    <div>
+                        <div class="uni-col-title">Key Facts</div>
+                        <ul class="uni-prog-list">
+                            <li>Located in <strong>Antwerp</strong> — Belgium's vibrant port city</li>
+                            <li>Practical, industry-linked programmes</li>
+                            <li>Strong arts and media departments</li>
+                            <li><strong>No scholarships</strong> available for non-EEA students</li>
+                            <li>Programme duration: 3–4 years bachelor's</li>
+                        </ul>
+                        <div class="uni-fee-box">💶 Tuition: <strong>~€7,530/year</strong> (non-EEA students)</div>
+                        <div class="uni-note-box">💡 KdG is ideal for students interested in business, digital media, or social sciences in a very practical, hands-on environment in Antwerp.</div>
+                        <a href="https://www.kdg.be/en/international-students" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a>
+                    </div>
                 </div>
-            </div>
+            </div></div>
         </div>
 
-    </div><!-- end accordion -->
+        <!-- THOMAS MORE -->
+        <div class="uni-card" id="thomas-more">
+            <div class="uni-card-header" onclick="toggleUni(this)">
+                <div class="uni-card-num">10</div><div class="uni-card-flag-col">📚</div>
+                <div class="uni-card-meta">
+                    <div class="uni-card-name">Thomas More University of Applied Sciences</div>
+                    <div class="uni-card-tagline">Business, IT & Healthcare · Antwerp / Mechelen / Geel, Belgium</div>
+                    <div class="uni-card-badges">
+                        <span class="uni-badge badge-applied">Hogeschool</span>
+                        <span class="uni-badge badge-en">English Programmes</span>
+                        <span class="uni-badge badge-fee">€9,000–€9,300/year</span>
+                    </div>
+                </div>
+                <div class="uni-card-toggle">▼</div>
+            </div>
+            <div class="uni-card-body"><div class="uni-card-inner"><div class="uni-card-divider"></div>
+                <div class="uni-body-grid">
+                    <div>
+                        <div class="uni-col-title">English Programmes</div>
+                        <ul class="uni-prog-list">
+                            <li>Business Management</li>
+                            <li>International Business Management</li>
+                            <li>Applied Computer Science</li>
+                            <li>Electronics — ICT</li>
+                            <li>Healthcare & Technology</li>
+                            <li>Biosciences</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="uni-col-title">Admission Criteria</div>
+                        <div class="uni-criteria-tabs"><button class="ucritab active" onclick="switchTab(this,'tm-all')">Requirements</button></div>
+                        <div id="tm-all" class="ucri-panel show">
+                            <ul class="ucri-list">
+                                <li><div class="ucri-dot">✓</div><span>Secondary diploma accepted in Belgium for higher education</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li>
+                                <li><div class="ucri-dot">✓</div><span><strong>B2 English proficiency</strong> — IELTS / TOEFL / Cambridge</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Passport copy</span></li>
+                                <li><div class="ucri-dot">✓</div><span>CV / resume (some programmes)</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Proof of finances (for visa application)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="uni-col-title">Key Facts</div>
+                        <ul class="uni-prog-list">
+                            <li>Multiple campuses across Antwerp province</li>
+                            <li><strong>Merit-based tuition waiver</strong> available for top applicants</li>
+                            <li>Strong industry partnerships and internship placements</li>
+                            <li>One of Belgium's largest hogescholen</li>
+                            <li>Excellent IT and bioscience programmes</li>
+                        </ul>
+                        <div class="uni-fee-box">💶 Tuition: <strong>€9,000–€9,300/year</strong> for visa students (waiver possible)</div>
+                        <div class="uni-note-box">💡 Thomas More is among the best-regarded hogescholen in Belgium. Ask NEXTSTEP about the merit-based tuition waiver — it can significantly reduce your costs.</div>
+                        <a href="https://www.thomasmore.be/en/international-students" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a>
+                    </div>
+                </div>
+            </div></div>
+        </div>
+
+        <!-- ODISEE -->
+        <div class="uni-card" id="odisee">
+            <div class="uni-card-header" onclick="toggleUni(this)">
+                <div class="uni-card-num">11</div><div class="uni-card-flag-col">🏫</div>
+                <div class="uni-card-meta">
+                    <div class="uni-card-name">Odisee University of Applied Sciences</div>
+                    <div class="uni-card-tagline">Business, Healthcare & Engineering · Brussels / Ghent / Aalst, Belgium</div>
+                    <div class="uni-card-badges">
+                        <span class="uni-badge badge-applied">Hogeschool</span>
+                        <span class="uni-badge badge-en">English Programmes</span>
+                        <span class="uni-badge badge-fee">€6,000–€8,000/year</span>
+                    </div>
+                </div>
+                <div class="uni-card-toggle">▼</div>
+            </div>
+            <div class="uni-card-body"><div class="uni-card-inner"><div class="uni-card-divider"></div>
+                <div class="uni-body-grid">
+                    <div>
+                        <div class="uni-col-title">English Programmes</div>
+                        <ul class="uni-prog-list">
+                            <li>International Business Management</li>
+                            <li>Applied Computer Science</li>
+                            <li>Nursing & Midwifery (some tracks)</li>
+                            <li>Biomedical Laboratory Technology</li>
+                            <li>Industrial Engineering</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="uni-col-title">Admission Criteria</div>
+                        <div class="uni-criteria-tabs"><button class="ucritab active" onclick="switchTab(this,'od-all')">Requirements</button></div>
+                        <div id="od-all" class="ucri-panel show">
+                            <ul class="ucri-list">
+                                <li><div class="ucri-dot">✓</div><span>Secondary diploma + eligibility for higher education</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li>
+                                <li><div class="ucri-dot">✓</div><span><strong>IELTS 6.0 / B2 CEFR</strong> minimum</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Passport copy</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Motivation letter (programme dependent)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="uni-col-title">Key Facts</div>
+                        <ul class="uni-prog-list">
+                            <li>Campuses in <strong>Brussels, Ghent, and Aalst</strong></li>
+                            <li>Tuition varies by programme</li>
+                            <li>Strong healthcare and biomedical programmes</li>
+                            <li>Brussels campus gives access to EU institutions and NGOs</li>
+                        </ul>
+                        <div class="uni-fee-box">💶 Tuition: <strong>€6,000–€8,000/year</strong> (programme dependent)</div>
+                        <div class="uni-note-box">💡 Odisee's Brussels campus is particularly attractive — practical education with the career advantages of studying in the EU capital.</div>
+                        <a href="https://www.odisee.be/en" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a>
+                    </div>
+                </div>
+            </div></div>
+        </div>
+
+        <!-- ARTEVELDE -->
+        <div class="uni-card" id="artevelde">
+            <div class="uni-card-header" onclick="toggleUni(this)">
+                <div class="uni-card-num">12</div><div class="uni-card-flag-col">🗞️</div>
+                <div class="uni-card-meta">
+                    <div class="uni-card-name">Artevelde University of Applied Sciences</div>
+                    <div class="uni-card-tagline">Journalism, Communication & Business · Ghent, Belgium</div>
+                    <div class="uni-card-badges">
+                        <span class="uni-badge badge-applied">Hogeschool</span>
+                        <span class="uni-badge badge-en">English Programmes</span>
+                        <span class="uni-badge badge-fee">€6,500–€8,000/year</span>
+                    </div>
+                </div>
+                <div class="uni-card-toggle">▼</div>
+            </div>
+            <div class="uni-card-body"><div class="uni-card-inner"><div class="uni-card-divider"></div>
+                <div class="uni-body-grid">
+                    <div>
+                        <div class="uni-col-title">English Programmes</div>
+                        <ul class="uni-prog-list">
+                            <li><strong>Journalism (popular for international students)</strong></li>
+                            <li>International Business Management</li>
+                            <li>Communication Management</li>
+                            <li>Applied Computer Science</li>
+                            <li>Graphic & Digital Media</li>
+                            <li>Healthcare Management</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="uni-col-title">Admission Criteria</div>
+                        <div class="uni-criteria-tabs"><button class="ucritab active" onclick="switchTab(this,'av-all')">Requirements</button></div>
+                        <div id="av-all" class="ucri-panel show">
+                            <ul class="ucri-list">
+                                <li><div class="ucri-dot">✓</div><span>Secondary school diploma</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li>
+                                <li><div class="ucri-dot">✓</div><span><strong>IELTS 6.0 / B2 CEFR</strong> minimum</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Passport copy</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Portfolio required for media/design programmes</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Proof of finances (for visa)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="uni-col-title">Key Facts</div>
+                        <ul class="uni-prog-list">
+                            <li>Located in <strong>Ghent</strong> — Belgium's top student city</li>
+                            <li>Journalism programme is <strong>particularly popular</strong> internationally</li>
+                            <li>Strong creative and media industry connections</li>
+                            <li>Ghent is affordable and student-friendly</li>
+                        </ul>
+                        <div class="uni-fee-box">💶 Tuition: <strong>€6,500–€8,000/year</strong></div>
+                        <div class="uni-note-box">💡 Artevelde is the go-to hogeschool for journalism, communication, and digital media in Belgium. Studying in Ghent adds great quality of life.</div>
+                        <a href="https://www.arteveldehogeschool.be/en" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a>
+                    </div>
+                </div>
+            </div></div>
+        </div>
+
+        <!-- VIVES -->
+        <div class="uni-card" id="vives">
+            <div class="uni-card-header" onclick="toggleUni(this)">
+                <div class="uni-card-num">13</div><div class="uni-card-flag-col">✈️</div>
+                <div class="uni-card-meta">
+                    <div class="uni-card-name">VIVES University of Applied Sciences</div>
+                    <div class="uni-card-tagline">Business, Aviation & Healthcare · Kortrijk / Bruges / Roeselare, Belgium</div>
+                    <div class="uni-card-badges">
+                        <span class="uni-badge badge-applied">Hogeschool</span>
+                        <span class="uni-badge badge-en">English Programmes</span>
+                        <span class="uni-badge badge-fee">€6,000–€8,000/year</span>
+                    </div>
+                </div>
+                <div class="uni-card-toggle">▼</div>
+            </div>
+            <div class="uni-card-body"><div class="uni-card-inner"><div class="uni-card-divider"></div>
+                <div class="uni-body-grid">
+                    <div>
+                        <div class="uni-col-title">English Programmes</div>
+                        <ul class="uni-prog-list">
+                            <li>International Business Management</li>
+                            <li><strong>Air Transport & Airport Operations (Aviation)</strong></li>
+                            <li>Applied Computer Science</li>
+                            <li>Nursing</li>
+                            <li>Agro- and Biotechnology</li>
+                            <li>Electromechanics / Industrial Engineering</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="uni-col-title">Admission Criteria</div>
+                        <div class="uni-criteria-tabs"><button class="ucritab active" onclick="switchTab(this,'vv-gen')">General</button><button class="ucritab" onclick="switchTab(this,'vv-avi')">Aviation</button></div>
+                        <div id="vv-gen" class="ucri-panel show">
+                            <ul class="ucri-list">
+                                <li><div class="ucri-dot">✓</div><span>EQF Level 4 diploma or equivalent (SSC+HSC)</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Academic transcripts</span></li>
+                                <li><div class="ucri-dot">✓</div><span><strong>IELTS 6.0 / TOEFL iBT 79 / Duolingo 105</strong></span></li>
+                                <li><div class="ucri-dot">✓</div><span>Passport copy</span></li>
+                                <li><div class="ucri-dot">✓</div><span>Proof of finances (for visa)</span></li>
+                            </ul>
+                        </div>
+                        <div id="vv-avi" class="ucri-panel">
+                            <ul class="ucri-list">
+                                <li><div class="ucri-dot">✓</div><span>All general requirements above</span></li>
+                                <li><div class="ucri-dot">⚠</div><span><strong>Medical fitness certificate</strong> — Class 1 or Class 2 Aviation Medical required</span></li>
+                                <li><div class="ucri-dot">⚠</div><span><strong>English ICAO Level 4+</strong> strongly recommended for aviation tracks</span></li>
+                                <li><div class="ucri-dot">⚠</div><span>Background check / security clearance may be required</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="uni-col-title">Key Facts</div>
+                        <ul class="uni-prog-list">
+                            <li>Aviation programme is <strong>unique in Belgium</strong> — one of very few hogescholen offering this</li>
+                            <li>Campuses in Kortrijk, Bruges, and Roeselare — affordable West Flanders region</li>
+                            <li>Accepts <strong>Duolingo 105</strong> as English proof (more accessible)</li>
+                            <li>Strong healthcare and engineering tracks</li>
+                        </ul>
+                        <div class="uni-fee-box">💶 Tuition: <strong>€6,000–€8,000/year</strong> depending on programme</div>
+                        <div class="uni-note-box">💡 VIVES is the only Belgian hogeschool with a dedicated Aviation programme. If you dream of working in air transport or airport management, this is your route.</div>
+                        <a href="https://www.vives.be/en/international-students" target="_blank" class="uni-website-link">🌐 Visit Official Website →</a>
+                    </div>
+                </div>
+            </div></div>
+        </div>
+
+    </div><!-- end hogescholen accordion -->
+
+    <!-- COMMON DOCUMENTS BOX -->
+    <div class="common-docs-box fade-up">
+        <h4>Common Documents Required — All Belgian Hogescholen</h4>
+        <div class="common-docs-grid">
+            <div class="common-doc-item"><div class="common-doc-dot">✓</div><span><strong>Passport copy</strong> (valid for at least 18 months)</span></div>
+            <div class="common-doc-item"><div class="common-doc-dot">✓</div><span><strong>Secondary/high school diploma</strong> (translated if not in English/Dutch/French)</span></div>
+            <div class="common-doc-item"><div class="common-doc-dot">✓</div><span><strong>Academic transcripts</strong> for all completed years</span></div>
+            <div class="common-doc-item"><div class="common-doc-dot">✓</div><span><strong>English proficiency</strong> — IELTS 6.0 / TOEFL 79 / Duolingo 105 / Cambridge B2</span></div>
+            <div class="common-doc-item"><div class="common-doc-dot">✓</div><span><strong>CV / resume</strong> (sometimes required)</span></div>
+            <div class="common-doc-item"><div class="common-doc-dot">✓</div><span><strong>Motivation letter</strong> (programme dependent)</span></div>
+            <div class="common-doc-item"><div class="common-doc-dot">✓</div><span><strong>Proof of finances</strong> (bank statements or sponsor letter for visa)</span></div>
+            <div class="common-doc-item"><div class="common-doc-dot">✓</div><span><strong>Residence permit</strong> if already residing in Belgium</span></div>
+        </div>
+    </div>
+
 </section>
 
 <hr class="section-sep" style="max-width:1160px;margin:0 auto 0;position:relative;z-index:1">
-<section id="living" class="living-section" style="padding-top:80px">
 
+<!-- LIVING GUIDE -->
+<section id="living" class="living-section" style="padding-top:80px">
     <div class="living-banner fade-up">
         <div class="living-banner-inner">
             <div class="living-banner-icon">🏙️</div>
@@ -897,161 +969,31 @@
             </div>
         </div>
     </div>
-
     <div class="living-cards-grid">
-
-        <!-- COST OF LIVING -->
-        <div class="lcard fade-up">
-            <span class="lcard-icon">💰</span>
-            <span class="lcard-tag">Monthly Budget</span>
-            <div class="lcard-title">Cost of Living</div>
-            <div class="lcard-body">
-                <div class="lcard-item"><div class="lcard-item-dot">€</div><span><strong>Total estimate:</strong> €850 – €1,200/month (excluding tuition)</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🏠</div><span><strong>Rent (shared room/kot):</strong> €350 – €600/month</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🛒</div><span><strong>Groceries & food:</strong> €200 – €300/month; supermarkets like Lidl/Aldi are student-friendly</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🚌</div><span><strong>Transport + phone:</strong> €30 – €60/month with student discounts</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🏥</div><span><strong>Health insurance:</strong> ~€10–15/month (mandatory mutualité)</span></div>
-            </div>
-            <div class="lcard-highlight">💡 Brussels is pricier than Ghent or Leuven. Budget €100–200 more/month in the capital.</div>
-        </div>
-
-        <!-- ACCOMMODATION -->
-        <div class="lcard fade-up">
-            <span class="lcard-icon">🏠</span>
-            <span class="lcard-tag">Where to Live</span>
-            <div class="lcard-title">Student Accommodation</div>
-            <div class="lcard-body">
-                <div class="lcard-item"><div class="lcard-item-dot">🏢</div><span><strong>University "Kot" (dorm):</strong> €350–500/month usually including utilities — apply as early as possible</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🏡</div><span><strong>Private shared room:</strong> €400–650 in Brussels/Leuven; cheaper in Ghent/Liège</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🔑</div><span><strong>Deposit required:</strong> Typically 2–3 months rent upfront</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🌐</div><span><strong>Find rooms on:</strong> Kotweb.be, Immoweb.be, Facebook groups "Rooms in Belgium"</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">📅</div><span>Start searching <strong>2–3 months before</strong> your arrival date — spots go fast</span></div>
-            </div>
-            <div class="lcard-highlight">💡 Ask your university's international office first — they often have reserved student housing lists.</div>
-        </div>
-
-        <!-- HEALTHCARE -->
-        <div class="lcard fade-up">
-            <span class="lcard-icon">🩺</span>
-            <span class="lcard-tag">Health & Insurance</span>
-            <div class="lcard-title">Healthcare in Belgium</div>
-            <div class="lcard-body">
-                <div class="lcard-item"><div class="lcard-item-dot">✅</div><span><strong>Mandatory:</strong> Register with a Belgian mutualité (health insurance fund) within 3 months of arrival</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🏛️</div><span><strong>Options:</strong> Mutualité Chrétienne (MC), Partenamut, Mutualité Neutre — all offer student rates</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">💊</div><span><strong>Coverage:</strong> Reimburses 70–80% of doctor visits, prescriptions, and specialist fees</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">💶</div><span><strong>Student cost:</strong> Approximately €10–15/month after student reduction applied</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🏥</div><span>Most universities have an on-campus <strong>student health service</strong> for free basic consultations</span></div>
-            </div>
-            <div class="lcard-highlight">💡 Keep your mutualité card with you at all times. Third-party payment means you rarely pay upfront at a GP.</div>
-        </div>
-
+        <div class="lcard fade-up"><span class="lcard-icon">💰</span><span class="lcard-tag">Monthly Budget</span><div class="lcard-title">Cost of Living</div><div class="lcard-body"><div class="lcard-item"><div class="lcard-item-dot">€</div><span><strong>Total estimate:</strong> €850–€1,200/month (excluding tuition)</span></div><div class="lcard-item"><div class="lcard-item-dot">🏠</div><span><strong>Rent (shared room/kot):</strong> €350–€600/month</span></div><div class="lcard-item"><div class="lcard-item-dot">🛒</div><span><strong>Groceries & food:</strong> €200–€300/month; Lidl/Aldi are student-friendly</span></div><div class="lcard-item"><div class="lcard-item-dot">🚌</div><span><strong>Transport + phone:</strong> €30–€60/month with student discounts</span></div><div class="lcard-item"><div class="lcard-item-dot">🏥</div><span><strong>Health insurance:</strong> ~€10–15/month (mandatory mutualité)</span></div></div><div class="lcard-highlight">💡 Brussels is pricier than Ghent or Leuven. Budget €100–200 more/month in the capital.</div></div>
+        <div class="lcard fade-up"><span class="lcard-icon">🏠</span><span class="lcard-tag">Where to Live</span><div class="lcard-title">Student Accommodation</div><div class="lcard-body"><div class="lcard-item"><div class="lcard-item-dot">🏢</div><span><strong>University "Kot" (dorm):</strong> €350–500/month usually including utilities</span></div><div class="lcard-item"><div class="lcard-item-dot">🏡</div><span><strong>Private shared room:</strong> €400–650 in Brussels/Leuven</span></div><div class="lcard-item"><div class="lcard-item-dot">🔑</div><span><strong>Deposit required:</strong> Typically 2–3 months rent upfront</span></div><div class="lcard-item"><div class="lcard-item-dot">🌐</div><span><strong>Find rooms on:</strong> Kotweb.be, Immoweb.be, Facebook groups</span></div></div><div class="lcard-highlight">💡 Ask your university's international office first — they often have reserved student housing lists.</div></div>
+        <div class="lcard fade-up"><span class="lcard-icon">🩺</span><span class="lcard-tag">Health & Insurance</span><div class="lcard-title">Healthcare in Belgium</div><div class="lcard-body"><div class="lcard-item"><div class="lcard-item-dot">✅</div><span><strong>Mandatory:</strong> Register with a Belgian mutualité within 3 months of arrival</span></div><div class="lcard-item"><div class="lcard-item-dot">🏛️</div><span><strong>Options:</strong> Mutualité Chrétienne, Partenamut, Mutualité Neutre</span></div><div class="lcard-item"><div class="lcard-item-dot">💊</div><span><strong>Coverage:</strong> Reimburses 70–80% of doctor visits and prescriptions</span></div><div class="lcard-item"><div class="lcard-item-dot">💶</div><span><strong>Student cost:</strong> Approximately €10–15/month after student reduction</span></div></div><div class="lcard-highlight">💡 Keep your mutualité card with you at all times. Third-party payment means you rarely pay upfront at a GP.</div></div>
     </div>
-
-    <div class="living-cards-grid-2" style="margin-top:20px">
-
-        <!-- PART-TIME WORK -->
-        <div class="lcard fade-up">
-            <span class="lcard-icon">💼</span>
-            <span class="lcard-tag">Work Rights</span>
-            <div class="lcard-title">Part-Time Jobs & Work Rules</div>
-            <div class="lcard-body">
-                <div class="lcard-item"><div class="lcard-item-dot">⏱</div><span><strong>20 hours/week</strong> maximum during academic year; full-time during July–August holidays</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">💶</div><span><strong>Minimum wage:</strong> ~€11.50/hour gross; popular jobs: hospitality, retail, campus assistant, delivery</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">📄</div><span><strong>Work permit:</strong> Non-EU students need a permit — your employer applies for it alongside your student residence card</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🎯</div><span>Students can earn up to <strong>€6,000 tax-free</strong> per year under the student worker scheme</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">📱</div><span>Find jobs via <strong>StudentJob.be, Jobat.be</strong> and university job boards</span></div>
-            </div>
-            <div class="lcard-highlight">💡 Working legally protects you and builds a Belgian work history — important for future visa renewals.</div>
-        </div>
-
-        <!-- TRANSPORT -->
-        <div class="lcard fade-up">
-            <span class="lcard-icon">🚆</span>
-            <span class="lcard-tag">Getting Around</span>
-            <div class="lcard-title">Transport & Student Perks</div>
-            <div class="lcard-body">
-                <div class="lcard-item"><div class="lcard-item-dot">🚍</div><span><strong>Brussels (STIB):</strong> Annual student pass ~€25/year when purchased through university — covers all metro, tram, bus</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🚂</div><span><strong>Trains (SNCB):</strong> "Go Pass 1" at €7.60 per single journey; student monthly passes heavily discounted</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🚴</div><span><strong>Cycling:</strong> Belgium is very bike-friendly — Villo! (Brussels), Blue-bike (nationwide) are affordable bike-sharing</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🌍</div><span><strong>Schengen travel:</strong> Day trips to Paris (1.5h), Amsterdam (2h), and Cologne (2h) by train</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🎭</div><span><strong>Student ID discounts:</strong> 50% off museums, theaters, cinema, and cultural events across Belgium</span></div>
-            </div>
-            <div class="lcard-highlight">💡 Most Belgian students cycle everywhere — budget €150–250 for a second-hand bike from Vinted or local markets.</div>
-        </div>
-
-        <!-- POST-STUDY -->
-        <div class="lcard fade-up">
-            <span class="lcard-icon">🚀</span>
-            <span class="lcard-tag">After Graduation</span>
-            <div class="lcard-title">Post-Study & Career Paths</div>
-            <div class="lcard-body">
-                <div class="lcard-item"><div class="lcard-item-dot">📆</div><span><strong>Orientation Year Permit:</strong> 12-month residence permit after graduation to search for employment — no job needed upfront</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">💼</div><span>Once employed, switch to a <strong>Work Permit B (Single Permit)</strong> — pathway to permanent residency after 5 years</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🏛️</div><span><strong>EU Institutions in Brussels:</strong> European Commission, Parliament, NATO — all hire international graduates</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">📈</div><span>High demand for <strong>STEM, business, logistics, IT, and finance</strong> professionals — Belgium is a major European hub</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🌱</div><span>After <strong>5 years of legal residence</strong> you can apply for long-term EC residence permit</span></div>
-            </div>
-            <div class="lcard-highlight">💡 NEXTSTEP can guide you on orientation year applications — contact us after graduation too.</div>
-        </div>
-
+    <div class="living-cards-grid-2" style="margin-top:18px">
+        <div class="lcard fade-up"><span class="lcard-icon">💼</span><span class="lcard-tag">Work Rights</span><div class="lcard-title">Part-Time Jobs & Work Rules</div><div class="lcard-body"><div class="lcard-item"><div class="lcard-item-dot">⏱</div><span><strong>20 hours/week</strong> maximum during academic year; full-time during July–August</span></div><div class="lcard-item"><div class="lcard-item-dot">💶</div><span><strong>Minimum wage:</strong> ~€11.50/hour gross</span></div><div class="lcard-item"><div class="lcard-item-dot">🎯</div><span>Students can earn up to <strong>€6,000 tax-free</strong> per year under the student worker scheme</span></div><div class="lcard-item"><div class="lcard-item-dot">📱</div><span>Find jobs via <strong>StudentJob.be, Jobat.be</strong> and university job boards</span></div></div><div class="lcard-highlight">💡 Working legally builds a Belgian work history — important for future visa renewals.</div></div>
+        <div class="lcard fade-up"><span class="lcard-icon">🚆</span><span class="lcard-tag">Getting Around</span><div class="lcard-title">Transport & Student Perks</div><div class="lcard-body"><div class="lcard-item"><div class="lcard-item-dot">🚍</div><span><strong>Brussels (STIB):</strong> Annual student pass ~€25/year via university</span></div><div class="lcard-item"><div class="lcard-item-dot">🚂</div><span><strong>Trains (SNCB):</strong> "Go Pass 1" at €7.60 per single journey</span></div><div class="lcard-item"><div class="lcard-item-dot">🚴</div><span><strong>Cycling:</strong> Villo! (Brussels) and Blue-bike (nationwide) for affordable bike-sharing</span></div><div class="lcard-item"><div class="lcard-item-dot">🌍</div><span><strong>Schengen travel:</strong> Day trips to Paris (1.5h), Amsterdam (2h), Cologne (2h)</span></div></div><div class="lcard-highlight">💡 Most Belgian students cycle everywhere — budget €150–250 for a second-hand bike.</div></div>
+        <div class="lcard fade-up"><span class="lcard-icon">🚀</span><span class="lcard-tag">After Graduation</span><div class="lcard-title">Post-Study & Career Paths</div><div class="lcard-body"><div class="lcard-item"><div class="lcard-item-dot">📆</div><span><strong>Orientation Year Permit:</strong> 12-month permit after graduation to search for employment</span></div><div class="lcard-item"><div class="lcard-item-dot">💼</div><span>Once employed, switch to <strong>Work Permit B (Single Permit)</strong></span></div><div class="lcard-item"><div class="lcard-item-dot">🏛️</div><span><strong>EU Institutions:</strong> European Commission, Parliament, NATO all hire internationally</span></div><div class="lcard-item"><div class="lcard-item-dot">🌱</div><span>After <strong>5 years legal residence</strong> you can apply for long-term EC residence permit</span></div></div><div class="lcard-highlight">💡 NEXTSTEP can guide you on orientation year applications after graduation too.</div></div>
     </div>
-
-    <!-- BANKING & REGISTRATION -->
-    <div class="living-cards-grid" style="margin-top:20px;grid-template-columns:1fr 1fr">
-
-        <div class="lcard fade-up">
-            <span class="lcard-icon">🏦</span>
-            <span class="lcard-tag">Admin & Banking</span>
-            <div class="lcard-title">Banking & Registration</div>
-            <div class="lcard-body">
-                <div class="lcard-item"><div class="lcard-item-dot">🏦</div><span><strong>Open a bank account:</strong> BNP Paribas Fortis, KBC, ING, Belfius — all offer free student accounts. Bring passport, residence certificate, and enrollment letter</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">📍</div><span><strong>Commune registration:</strong> Register at your local commune (city hall) within 8 days of arrival — required by Belgian law</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🪪</div><span>After commune registration, you receive a <strong>foreigner's ID card (Annex 15/35)</strong> — this is your official residence document</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">📶</div><span><strong>SIM card:</strong> Base, Proximus, Orange Belgium — student SIMs from €10–20/month including data</span></div>
-            </div>
-            <div class="lcard-highlight">💡 Commune registration is mandatory — not optional. Do it within your first week.</div>
-        </div>
-
-        <div class="lcard fade-up">
-            <span class="lcard-icon">🗣️</span>
-            <span class="lcard-tag">Language & Culture</span>
-            <div class="lcard-title">Language & Integration</div>
-            <div class="lcard-body">
-                <div class="lcard-item"><div class="lcard-item-dot">🇬🇧</div><span><strong>English:</strong> Widely spoken, especially in Brussels and at all major universities — you will manage easily</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🇳🇱</div><span><strong>Dutch (Flemish):</strong> Spoken in Ghent, Leuven, Antwerp — learning basics helps greatly with daily life</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🇫🇷</div><span><strong>French:</strong> Spoken in Brussels and Wallonia — useful for social life and many jobs in the capital</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">📚</div><span><strong>Free language courses:</strong> Available through universities, NT2 centers, and public libraries — take advantage of these</span></div>
-                <div class="lcard-item"><div class="lcard-item-dot">🌍</div><span>Belgium is <strong>extremely multicultural</strong> — over 35% of Brussels residents are non-Belgian. You will feel at home.</span></div>
-            </div>
-            <div class="lcard-highlight">💡 Even basic Dutch or French dramatically improves your job prospects and social integration in Belgium.</div>
-        </div>
-
-    </div>
-
     <div class="living-footer-note fade-up">
         <div class="living-footer-note-icon">📌</div>
-        <div><strong style="color:var(--white)">Important reminder:</strong> Commune registration must be done within 8 days of arrival. Health insurance (mutualité) must be set up within 3 months. Both are legally required. NEXTSTEP Immigration provides full post-arrival guidance to help you complete these steps smoothly upon landing in Belgium.</div>
+        <div><strong style="color:var(--navy)">Important reminder:</strong> Commune registration must be done within 8 days of arrival. Health insurance (mutualité) must be set up within 3 months. Both are legally required. NEXTSTEP Immigration provides full post-arrival guidance to help you complete these steps smoothly upon landing in Belgium.</div>
     </div>
-
 </section>
 
-<!-- ══════════ APPLICATION FORM ══════════ -->
+<!-- APPLICATION FORM -->
 <div class="form-wrapper" id="be-form">
-    <div class="section-label" style="margin-bottom:10px">
-        <div class="section-label-line"></div>
-        <div class="section-label-text">Apply Now</div>
-    </div>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);font-weight:300;margin-bottom:40px">Start Your Belgium Application</h2>
-
+    <div class="section-label" style="margin-bottom:10px"><div class="section-label-line"></div><div class="section-label-text">Apply Now</div></div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);font-weight:300;margin-bottom:40px;color:var(--navy)">Start Your Belgium Application</h2>
     <div class="form-section">
         <div class="form-header">
             <div class="form-header-icon">📋</div>
-            <div>
-                <h3>Belgium Student Application</h3>
-                <p>Fill in your details and our consultants will contact you within 24 hours.</p>
-            </div>
+            <div><h3>Belgium Student Application</h3><p>Fill in your details and our consultants will contact you within 24 hours.</p></div>
         </div>
-
         <form id="belgiumForm" onsubmit="handleSubmit(event,'belgium')">
             <div class="form-grid">
                 <div class="field-group"><label class="field-label">Full Name <span>*</span></label><input type="text" name="fullName" placeholder="Your full name" required></div>
@@ -1060,37 +1002,20 @@
                 <div class="field-group"><label class="field-label">Phone Number <span>*</span></label><input type="tel" name="phone" placeholder="+880 XXXXXXXXX" required></div>
                 <div class="field-group"><label class="field-label">City / District <span>*</span></label><input type="text" name="city" placeholder="Dhaka, Chittagong..." required></div>
                 <div class="field-group"><label class="field-label">Passport Number</label><input type="text" name="passport" placeholder="E.g. A12345678"></div>
-                <div class="field-group"><label class="field-label">Highest Education <span>*</span></label>
-                    <select name="education" required><option value="" disabled selected>Select your level</option><option>SSC / O-Level</option><option>HSC / A-Level</option><option>Bachelor's Degree</option><option>Master's Degree</option><option>Other</option></select>
-                </div>
+                <div class="field-group"><label class="field-label">Highest Education <span>*</span></label><select name="education" required><option value="" disabled selected>Select your level</option><option>SSC / O-Level</option><option>HSC / A-Level</option><option>Bachelor's Degree</option><option>Master's Degree</option><option>Other</option></select></div>
                 <div class="field-group"><label class="field-label">GPA / CGPA</label><input type="text" name="gpa" placeholder="E.g. 4.80 / 5.00 or 3.5 / 4.0"></div>
-                <div class="field-group"><label class="field-label">English Test</label>
-                    <select name="englishTest"><option value="" disabled selected>Select test taken</option><option>IELTS</option><option>TOEFL</option><option>Duolingo</option><option>English Medium Education</option><option>Not yet taken</option></select>
-                </div>
+                <div class="field-group"><label class="field-label">English Test</label><select name="englishTest"><option value="" disabled selected>Select test taken</option><option>IELTS</option><option>TOEFL</option><option>Duolingo</option><option>English Medium Education</option><option>Not yet taken</option></select></div>
                 <div class="field-group"><label class="field-label">English Score / Band</label><input type="text" name="englishScore" placeholder="E.g. 6.5 or 90"></div>
                 <div class="field-group"><label class="field-label">Preferred Study Field <span>*</span></label><input type="text" name="studyField" placeholder="E.g. Computer Science, Business..." required></div>
-                <div class="field-group"><label class="field-label">Preferred Study Level <span>*</span></label>
-                    <select name="studyLevel" required><option value="" disabled selected>Select level</option><option>Bachelor's</option><option>Master's</option><option>PhD / Doctorate</option><option>Language Course</option></select>
-                </div>
+                <div class="field-group"><label class="field-label">Preferred Study Level <span>*</span></label><select name="studyLevel" required><option value="" disabled selected>Select level</option><option>Bachelor's</option><option>Master's</option><option>PhD / Doctorate</option><option>Language Course</option></select></div>
                 <div class="field-group"><label class="field-label">Preferred University (if known)</label><input type="text" name="university" placeholder="KU Leuven, Ghent, VUB..."></div>
-                <div class="field-group"><label class="field-label">Intake / Start Date</label>
-                    <select name="intake"><option value="" disabled selected>When do you want to start?</option><option>September 2025</option><option>February 2026</option><option>September 2026</option><option>February 2027</option><option>Not sure yet</option></select>
-                </div>
-                <div class="field-group"><label class="field-label">Financial Source</label>
-                    <select name="financialSource"><option value="" disabled selected>Who will fund your studies?</option><option>Self / Family</option><option>Bank Loan</option><option>Scholarship</option><option>Sponsor</option></select>
-                </div>
-                <div class="field-group"><label class="field-label">Valid Passport?</label>
-                    <select name="hasPassport"><option value="" disabled selected>Select</option><option>Yes, valid for 2+ years</option><option>Yes, expires within 1–2 years</option><option>Not yet applied</option></select>
-                </div>
-                <div class="field-group form-full"><label class="field-label">Additional Information / Questions</label>
-                    <textarea name="message" placeholder="Tell us about your goals, any previous visa refusals, or questions you have..."></textarea>
-                </div>
+                <div class="field-group"><label class="field-label">Intake / Start Date</label><select name="intake"><option value="" disabled selected>When do you want to start?</option><option>September 2025</option><option>February 2026</option><option>September 2026</option><option>February 2027</option><option>Not sure yet</option></select></div>
+                <div class="field-group"><label class="field-label">Financial Source</label><select name="financialSource"><option value="" disabled selected>Who will fund your studies?</option><option>Self / Family</option><option>Bank Loan</option><option>Scholarship</option><option>Sponsor</option></select></div>
+                <div class="field-group"><label class="field-label">Valid Passport?</label><select name="hasPassport"><option value="" disabled selected>Select</option><option>Yes, valid for 2+ years</option><option>Yes, expires within 1–2 years</option><option>Not yet applied</option></select></div>
+                <div class="field-group form-full"><label class="field-label">Additional Information / Questions</label><textarea name="message" placeholder="Tell us about your goals, any previous visa refusals, or questions you have..."></textarea></div>
             </div>
             <button type="submit" class="submit-btn">Submit Belgium Application</button>
-            <div class="success-toast" id="be-toast">
-                <span style="font-size:22px">✅</span>
-                <div><strong>Application Submitted!</strong><br><span style="font-size:12px;opacity:.8">Your data has been saved. Our team will contact you within 24 hours.</span></div>
-            </div>
+            <div class="success-toast" id="be-toast"><span style="font-size:22px">✅</span><div><strong>Application Submitted!</strong><br><span style="font-size:12px;opacity:.8">Our team will contact you within 24 hours.</span></div></div>
             <p class="form-note">🔒 Your information is confidential. By submitting you consent to being contacted by NEXTSTEP IMMIGRATION.</p>
         </form>
     </div>
@@ -1100,83 +1025,29 @@
 <footer>
     <div class="footer-top">
         <div>
-            <a href="index.html"><img src="logo.png" alt="NextStep Immigration" style="height:50px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))"></a>
+            <a href="index.html"><img src="logo.png" alt="NextStep Immigration" style="height:48px;width:auto;object-fit:contain;filter:brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,.3))"></a>
             <p class="footer-desc">Belgium-based student visa consultancy helping ambitious Bangladeshi students build their future in Europe.</p>
         </div>
-        <div class="footer-col">
-            <h4>Navigate</h4>
-            <ul>
-                <li onclick="location.href='index.html'">← Back to Home</li>
-                <li onclick="location.href='italy.html'">🇮🇹 Italy Page</li>
-                <li onclick="document.getElementById('visa').scrollIntoView({behavior:'smooth'})">Visa Requirements</li>
-                <li onclick="document.getElementById('living').scrollIntoView({behavior:'smooth'})">Student Life Guide</li>
-                <li onclick="document.getElementById('be-form').scrollIntoView({behavior:'smooth'})">Apply Now</li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>Contact Us</h4>
-            <div class="footer-contact-item"><span>📍</span><span>Brussels, Belgium (HQ)<br>& Dhaka, Bangladesh</span></div>
-            <div class="footer-contact-item"><span>📧</span><span>info@nextstepimmigration.be</span></div>
-            <div class="footer-contact-item"><span>📞</span><span>+32 XXX XXX XXX (Belgium)<br>+880 XXXXXXXXX (BD)</span></div>
+        <div class="footer-col"><h4>Navigate</h4><ul><li onclick="location.href='index.html'">← Back to Home</li><li onclick="location.href='italy.html'">🇮🇹 Italy Page</li><li onclick="document.getElementById('visa').scrollIntoView({behavior:'smooth'})">Visa Requirements</li><li onclick="document.getElementById('living').scrollIntoView({behavior:'smooth'})">Student Life Guide</li><li onclick="document.getElementById('be-form').scrollIntoView({behavior:'smooth'})">Apply Now</li></ul></div>
+        <div class="footer-col"><h4>Contact Us</h4>
+            <div class="footer-contact-item"><span>📍</span><span>Antwerp, Belgium (HQ)<br>& Chittagong, Bangladesh</span></div>
+            <div class="footer-contact-item"><span>📧</span><span>belgian.business01@gmail.com</span></div>
+            <div class="footer-contact-item"><span>📞</span><span>+32 XXX XXX XXX (Belgium)<br>+8801805723581 (BD)</span></div>
             <div class="footer-contact-item"><span>📘</span><a href="https://www.facebook.com/profile.php?id=61587097272961" target="_blank" style="color:#4293f5;text-decoration:none">Follow us on Facebook</a></div>
         </div>
     </div>
-    <div class="footer-bottom">
-        <span>© 2025 NEXTSTEP IMMIGRATION · All rights reserved.</span>
-        <div class="footer-flags">🇧🇪 🇮🇹 🇧🇩</div>
-    </div>
+    <div class="footer-bottom"><span>© 2025 NEXTSTEP IMMIGRATION · All rights reserved.</span><div class="footer-flags">🇧🇪 🇮🇹 🇧🇩</div></div>
 </footer>
 
 <script>
-    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwuefXXDkKgIyChRBsAuYo_dJDVFmyXZrMP_mtIXrqG92QrgcWfG8bq1kqEr6Q9cBj2/exec';
-
-    function toggleUni(header) {
-        const card = header.parentElement;
-        const isOpen = card.classList.contains('open');
-        // Close all
-        document.querySelectorAll('.uni-card').forEach(c => c.classList.remove('open'));
-        // Open clicked if it was closed
-        if (!isOpen) card.classList.add('open');
-    }
-
-    function switchTab(btn, panelId) {
-        const card = btn.closest('.uni-card-inner');
-        card.querySelectorAll('.ucritab').forEach(b => b.classList.remove('active'));
-        card.querySelectorAll('.ucri-panel').forEach(p => p.classList.remove('show'));
-        btn.classList.add('active');
-        document.getElementById(panelId).classList.add('show');
-    }
-
-    function scrollToUni(id) {
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.classList.add('open');
-        setTimeout(() => el.scrollIntoView({behavior:'smooth', block:'start'}), 100);
-    }
-
-    async function handleSubmit(e, country) {
-        e.preventDefault();
-        const form = e.target;
-        const btn = form.querySelector('.submit-btn');
-        const toast = document.getElementById('be-toast');
-        const raw = {};
-        new FormData(form).forEach((v,k) => raw[k]=v);
-        raw.country = 'BELGIUM';
-        raw.submittedAt = new Date().toLocaleString('en-GB',{timeZone:'Asia/Dhaka',year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
-        const orig = btn.textContent;
-        btn.textContent = 'Sending…'; btn.disabled = true; btn.style.opacity = '.7';
-        try {
-            await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(raw)});
-            form.reset(); btn.textContent = '✓ Sent!'; btn.style.opacity = '1';
-            toast.classList.add('show');
-            toast.scrollIntoView({behavior:'smooth',block:'center'});
-            setTimeout(()=>{btn.textContent=orig;btn.disabled=false;toast.classList.remove('show')},8000);
-        } catch(err) {
-            btn.textContent='Failed — Try Again'; btn.disabled=false; btn.style.opacity='1'; btn.style.background='#7c1a1a';
-            setTimeout(()=>{btn.textContent=orig;btn.style.background=''},4000);
-        }
-    }
-    const obs = new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('visible')),{threshold:.08});
+    const SHEET_URL='https://script.google.com/macros/s/AKfycbwuefXXDkKgIyChRBsAuYo_dJDVFmyXZrMP_mtIXrqG92QrgcWfG8bq1kqEr6Q9cBj2/exec';
+    const nav=document.getElementById('navbar');
+    window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
+    function toggleUni(h){const c=h.parentElement,o=c.classList.contains('open');document.querySelectorAll('.uni-card').forEach(x=>x.classList.remove('open'));if(!o)c.classList.add('open')}
+    function switchTab(btn,pid){const i=btn.closest('.uni-card-inner');i.querySelectorAll('.ucritab').forEach(b=>b.classList.remove('active'));i.querySelectorAll('.ucri-panel').forEach(p=>p.classList.remove('show'));btn.classList.add('active');document.getElementById(pid).classList.add('show')}
+    function scrollToUni(id){const el=document.getElementById(id);if(!el)return;el.classList.add('open');setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),100)}
+    async function handleSubmit(e,country){e.preventDefault();const form=e.target,btn=form.querySelector('.submit-btn'),toast=document.getElementById('be-toast'),raw={};new FormData(form).forEach((v,k)=>raw[k]=v);raw.country='BELGIUM';raw.submittedAt=new Date().toLocaleString('en-GB',{timeZone:'Asia/Dhaka',year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});const orig=btn.textContent;btn.textContent='Sending…';btn.disabled=true;btn.style.opacity='.7';try{await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(raw)});form.reset();btn.textContent='✓ Sent!';btn.style.opacity='1';toast.classList.add('show');toast.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>{btn.textContent=orig;btn.disabled=false;toast.classList.remove('show')},8000)}catch(err){btn.textContent='Failed — Try Again';btn.disabled=false;btn.style.opacity='1';setTimeout(()=>{btn.textContent=orig},4000)}}
+    const obs=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('visible')),{threshold:.08});
     document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 </script>
 </body>
